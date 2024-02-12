@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewsTableViewCell" rowHeight="184" id="KGk-i7-Jjw" customClass="NewsTableViewCell" customModule="F1FanApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="391" height="250"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="391" height="250"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X9R-GB-SQG" userLabel="CardContainer">
+                        <rect key="frame" x="8" y="11" width="374" height="228"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="News title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SP8-tc-S6b">
+                                <rect key="frame" x="0.0" y="6" width="374" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="374" id="qpU-RY-uqN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fj8-gA-Lpg">
+                                <rect key="frame" x="149" y="28" width="219" height="192"/>
+                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="192" id="1mn-E3-jIU"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="219" id="WMX-cg-a0Q"/>
+                                    <constraint firstAttribute="width" constant="219" id="a0g-TH-Gc6"/>
+                                    <constraint firstAttribute="height" constant="192" id="aCy-1c-DoD"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Loading.gif" translatesAutoresizingMaskIntoConstraints="NO" id="ZiE-as-I4S">
+                                <rect key="frame" x="5" y="64" width="133" height="95"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="133" id="3iI-eG-tNO"/>
+                                    <constraint firstAttribute="width" constant="133" id="rld-Xt-Emd"/>
+                                    <constraint firstAttribute="height" constant="95" id="uZI-Qt-XMl"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="95" id="wvr-mA-8bi"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dd/mm/yy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UHn-ky-Cjn">
+                                <rect key="frame" x="8" y="164" width="133" height="11"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="133" id="NDc-Us-STc"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="11" id="THy-EG-qLD"/>
+                                    <constraint firstAttribute="height" constant="11" id="pup-hB-EPc"/>
+                                    <constraint firstAttribute="width" constant="133" id="ufq-kX-kWc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemGray4Color"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="SP8-tc-S6b" secondAttribute="trailing" id="1ps-Xo-7Wx"/>
+                            <constraint firstItem="ZiE-as-I4S" firstAttribute="top" secondItem="SP8-tc-S6b" secondAttribute="bottom" constant="41" id="3hw-DQ-gw9"/>
+                            <constraint firstAttribute="trailing" secondItem="fj8-gA-Lpg" secondAttribute="trailing" constant="6" id="4Vg-Bs-6gh"/>
+                            <constraint firstItem="SP8-tc-S6b" firstAttribute="leading" secondItem="X9R-GB-SQG" secondAttribute="leading" id="8Yt-MH-MPu"/>
+                            <constraint firstAttribute="height" constant="228" id="Ch9-5U-75F"/>
+                            <constraint firstItem="UHn-ky-Cjn" firstAttribute="leading" secondItem="X9R-GB-SQG" secondAttribute="leading" constant="8" id="EQe-cz-w4s"/>
+                            <constraint firstItem="UHn-ky-Cjn" firstAttribute="top" secondItem="ZiE-as-I4S" secondAttribute="bottom" constant="5" id="LZE-Ci-3Um"/>
+                            <constraint firstAttribute="width" constant="374" id="dQi-KR-sVR"/>
+                            <constraint firstAttribute="bottom" secondItem="fj8-gA-Lpg" secondAttribute="bottom" constant="8" id="yjm-jS-wDF"/>
+                            <constraint firstItem="SP8-tc-S6b" firstAttribute="top" secondItem="X9R-GB-SQG" secondAttribute="top" constant="6" id="zUd-Ud-d6Y"/>
+                            <constraint firstItem="ZiE-as-I4S" firstAttribute="leading" secondItem="X9R-GB-SQG" secondAttribute="leading" constant="5" id="ztv-2K-HoQ"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="X9R-GB-SQG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Bqe-9D-lmd"/>
+                    <constraint firstItem="X9R-GB-SQG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="J6b-Yw-S03"/>
+                    <constraint firstAttribute="trailing" secondItem="X9R-GB-SQG" secondAttribute="trailing" constant="9" id="U05-aa-QZA"/>
+                    <constraint firstAttribute="bottom" secondItem="X9R-GB-SQG" secondAttribute="bottom" constant="12" id="qTb-Fg-q09"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="cardContainer" destination="X9R-GB-SQG" id="Qyc-7J-faO"/>
+                <outlet property="contentTV" destination="fj8-gA-Lpg" id="yTt-1Y-4Az"/>
+                <outlet property="dateLBL" destination="UHn-ky-Cjn" id="kOp-ij-XbQ"/>
+                <outlet property="newsImageIMG" destination="ZiE-as-I4S" id="qhW-jO-hdU"/>
+                <outlet property="titleLBL" destination="SP8-tc-S6b" id="OIO-dh-Vo2"/>
+            </connections>
+            <point key="canvasLocation" x="-40.458015267175568" y="-1.4084507042253522"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Loading.gif" width="200" height="200"/>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

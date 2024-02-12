@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DriverTableViewCell" rowHeight="496" id="KGk-i7-Jjw" customClass="DriverTableViewCell" customModule="F1FanApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="350" height="496"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="350" height="496"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9QH-Jx-rBm">
+                        <rect key="frame" x="39" y="19" width="273" height="458"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="australia" translatesAutoresizingMaskIntoConstraints="NO" id="pfW-0c-nbg">
+                                <rect key="frame" x="16" y="367" width="111" height="71"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="111" id="J1B-L0-FOs"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="71" id="Naf-gi-PeB"/>
+                                    <constraint firstAttribute="width" constant="111" id="Sra-Yj-j3t"/>
+                                    <constraint firstAttribute="height" constant="71" id="Zbx-Au-jdU"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Driver name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DPk-Ty-4ep">
+                                <rect key="frame" x="0.0" y="291" width="273" height="26"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffR-R1-LxY">
+                                <rect key="frame" x="0.0" y="319" width="273" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RXp-Ar-bpt">
+                                <rect key="frame" x="16" y="13" width="240" height="270"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="Jtu-ie-PCt"/>
+                                    <constraint firstAttribute="height" constant="270" id="SIs-KC-q1N"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2E-q5-N51">
+                                <rect key="frame" x="145" y="367" width="111" height="71"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="111" id="Ahg-6V-R1w"/>
+                                    <constraint firstAttribute="height" constant="71" id="xma-sm-CEE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.85098046059999999" green="0.85098046059999999" blue="0.85098046059999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="RXp-Ar-bpt" firstAttribute="top" secondItem="9QH-Jx-rBm" secondAttribute="top" constant="13" id="6QG-TT-Qjg"/>
+                            <constraint firstItem="pfW-0c-nbg" firstAttribute="leading" secondItem="9QH-Jx-rBm" secondAttribute="leading" constant="16" id="D4V-yk-gxr"/>
+                            <constraint firstItem="DPk-Ty-4ep" firstAttribute="top" secondItem="RXp-Ar-bpt" secondAttribute="bottom" constant="8" symbolic="YES" id="RxG-aF-Da8"/>
+                            <constraint firstAttribute="trailing" secondItem="I2E-q5-N51" secondAttribute="trailing" constant="17" id="StM-8j-Nm8"/>
+                            <constraint firstAttribute="trailing" secondItem="RXp-Ar-bpt" secondAttribute="trailing" constant="17" id="UOE-cL-smH"/>
+                            <constraint firstAttribute="trailing" secondItem="ffR-R1-LxY" secondAttribute="trailing" id="XI2-DG-Tuh"/>
+                            <constraint firstItem="DPk-Ty-4ep" firstAttribute="leading" secondItem="9QH-Jx-rBm" secondAttribute="leading" id="Z9i-EX-l3u"/>
+                            <constraint firstAttribute="trailing" secondItem="DPk-Ty-4ep" secondAttribute="trailing" id="gwY-0f-oMu"/>
+                            <constraint firstAttribute="bottom" secondItem="I2E-q5-N51" secondAttribute="bottom" constant="20" symbolic="YES" id="i6I-Bq-3TR"/>
+                            <constraint firstItem="ffR-R1-LxY" firstAttribute="leading" secondItem="9QH-Jx-rBm" secondAttribute="leading" id="iLn-vy-6oP"/>
+                            <constraint firstItem="RXp-Ar-bpt" firstAttribute="leading" secondItem="9QH-Jx-rBm" secondAttribute="leading" constant="16" id="k5V-qg-tFw"/>
+                            <constraint firstAttribute="bottom" secondItem="pfW-0c-nbg" secondAttribute="bottom" constant="20" symbolic="YES" id="xbu-7S-56C"/>
+                            <constraint firstItem="ffR-R1-LxY" firstAttribute="top" secondItem="DPk-Ty-4ep" secondAttribute="bottom" constant="2" id="yBG-lx-GKJ"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="9QH-Jx-rBm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="19" id="75X-it-brk"/>
+                    <constraint firstItem="9QH-Jx-rBm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="39" id="QqW-Df-9EC"/>
+                    <constraint firstAttribute="bottom" secondItem="9QH-Jx-rBm" secondAttribute="bottom" constant="19" id="ajh-pN-4B2"/>
+                    <constraint firstAttribute="trailing" secondItem="9QH-Jx-rBm" secondAttribute="trailing" constant="38" id="hu7-0B-5aX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="cardContainer" destination="9QH-Jx-rBm" id="EjR-GQ-TdP"/>
+                <outlet property="driverIMG" destination="RXp-Ar-bpt" id="rDx-8t-bB6"/>
+                <outlet property="driverLBL" destination="DPk-Ty-4ep" id="m2b-rz-FSE"/>
+                <outlet property="flagIMG" destination="pfW-0c-nbg" id="G4K-wQ-Xw4"/>
+                <outlet property="numberLBL" destination="I2E-q5-N51" id="MRI-Ub-yXZ"/>
+                <outlet property="teamLBL" destination="ffR-R1-LxY" id="wMW-X9-gP7"/>
+            </connections>
+            <point key="canvasLocation" x="158.77862595419847" y="61.971830985915496"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="australia" width="412" height="275"/>
+    </resources>
+</document>
