@@ -11,6 +11,7 @@ import SwiftUI
 class LiveChatViewController: UIViewController {
     //355 opt hight
     var registered = false
+    var currentUser = ""
     
     @IBOutlet var vcView: UIView!   //Whole View Controller View
     
@@ -41,7 +42,8 @@ class LiveChatViewController: UIViewController {
             print("Username is Empty");
         } else {
             do {
-                APIUtil.postToChatUsers(username: usernameTXT.text!)
+                //APIUtil.postToChatUsers(username: usernameTXT.text!)
+                currentUser = usernameTXT.text!
                 
                 registered = !registered
                 
@@ -60,6 +62,10 @@ class LiveChatViewController: UIViewController {
     }
     
     @IBAction func sendBTN(_ sender: Any) {
+        //APIUtil.postToChatMessages(username: currentUser, message: messageTXB.text!)
+        print("USER: \(currentUser)");
+        print("Message: \(messageTXB.text!)");
+        messageTXB.text = "";
     }
     
     
