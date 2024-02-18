@@ -8,10 +8,13 @@
 import UIKit
 import SwiftUI
 
-class LiveChatViewController: UIViewController {
+class LiveChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //355 opt hight
     var registered = false
-    var currentUser = ""
+    var currentUsername = ""
+    var currentUserId = ""
+    var orderedMessages: [ChatMessage] = [ChatMessage(message: "", isUser: false)]
+    var timer: Timer?   //Timer to load chat messages
     
     @IBOutlet var vcView: UIView!   //Whole View Controller View
     
@@ -36,14 +39,40 @@ class LiveChatViewController: UIViewController {
     @IBOutlet weak var countryLBL: UILabel!
     
     
+// -------------- CHAT TABLE VIEW
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("Size ARRAY: \(orderedMessages.count)")
+        return orderedMessages.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = messageTableView.dequeueReusableCell(withIdentifier: "MessageTableViewCell", for: indexPath) as! MessageTableViewCell
+        
+        if (orderedMessages[indexPath.row].isUser) {    //My Message
+            cell.messageTXT.textAlignment = .right
+            cell.messageTXT.text = orderedMessages[indexPath.row].message
+        } else {    //Others Message
+            cell.messageTXT.textAlignment = .left
+            cell.messageTXT.text = orderedMessages[indexPath.row].message
+        }
+        
+        print("ROW: \(indexPath.row) | MESSAGE: \(orderedMessages[indexPath.row].message)")
+        
+        return cell
+    }
+    
+// ---------------------------------
+    
+    
     @IBAction func joinBTN(_ sender: Any) {
-        if (usernameTXT.text == "") {
+        if (usernameTXT.text == "") {       //Doesn´t enter CHAT
             //Ignorar
             print("Username is Empty");
-        } else {
+        } else {    //Enters CHAT
             do {
-                //APIUtil.postToChatUsers(username: usernameTXT.text!)
-                currentUser = usernameTXT.text!
+                APIUtil.postToChatUsers(username: usernameTXT.text!)
+                currentUsername = usernameTXT.text!
                 
                 registered = !registered
                 
@@ -53,6 +82,11 @@ class LiveChatViewController: UIViewController {
                 joinOUTLET.isHidden = registered
                 
                 print("You joined the Chat!!");
+                
+                let chatManager = self
+                chatManager.startChat()
+                RunLoop.main.run()
+                
             } catch {
                 print("You cannot Log In to chat");
             }
@@ -62,23 +96,128 @@ class LiveChatViewController: UIViewController {
     }
     
     @IBAction func sendBTN(_ sender: Any) {
-        //APIUtil.postToChatMessages(username: currentUser, message: messageTXB.text!)
-        print("USER: \(currentUser)");
+        APIUtil.postToChatMessages(username: currentUsername, message: messageTXB.text!)
+        print("-------- Sending Message --------")
+        print("USER: \(currentUsername)");
         print("Message: \(messageTXB.text!)");
         messageTXB.text = "";
     }
     
     
     
+// ----------------------- Chat Logic
     
-    
-    
-    
-    
-    @objc func imageTapped(_ sender: UITapGestureRecognizer) {
-        //Segue to Image Window
-        performSegue(withIdentifier: "circuitInfo", sender: photoIMG)
+    func startChat() {
+        // Invalidate any existing timer before starting a new one
+        timer?.invalidate()
+
+        // Start a new timer on a background queue that repeats every 2 seconds
+        timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
+            self.loadChat(self.messageTableView)
+        }
+
+        // Ensure the timer runs on a background queue
+        if let timer = timer {
+            RunLoop.current.add(timer, forMode: .common)
+        }
     }
+    
+    func stopChat() {
+        // Stop the timer when needed
+        timer?.invalidate()
+    }
+    
+    
+    func loadChat(_ tableView: UITableView) {
+        var newMessages: [ChatMessage] = []    //create new list of messages
+        
+        
+        if (self.currentUserId == "") {     //We don´t have our User_Id
+            APIUtil.getUserId(forUsername: self.currentUsername) { result in
+                switch result {
+                case .success(let userId):
+                    if let userId = userId {
+                        print("User ID: \(userId) for USERNAME: \(self.currentUsername)")
+                        self.currentUserId = userId     //Obtenemos ID del Sender
+                        
+                        
+                        
+                        APIUtil.getAPI(from: "ChatMessages")
+                        if let chatMessages = UserDefaults.standard.string(forKey: "ChatMessages") {
+                            if let jsonData = chatMessages.data(using: .utf8) {
+                                do {
+                                    let messages = try JSONDecoder().decode([ChatMessages].self, from: jsonData)
+                                    
+                                    for message in messages {
+                                        let chatMessage = ChatMessage(message: message.Content, isUser: self.currentUserId == message.iduser)    //Crea mensaje ordenado
+                                        newMessages.append(chatMessage)     //Añade el mensaje a la lista de ordenados
+                                        print("AÑADIENDO: \(chatMessage.message)")
+                                    }
+                                    
+                                    self.orderedMessages = newMessages
+                                    print("LISTA DE MENSAJES: \(self.orderedMessages)")
+                                    
+                                    tableView.reloadData()
+                                    
+                                    
+                                } catch {
+                                    print("Error decoding JSON: \(error)")
+                                }
+                            }
+                        } else {
+                            print("Chat is Disconnected")
+                        }
+                        
+                        
+                        
+                    } else {
+                        print("User not found.")
+                        self.currentUserId = "99999"
+                    }
+                case .failure(let error):
+                    print("Error: \(error)")
+                }
+                
+                
+                
+            }
+        } else {    //We have the User_Id
+            APIUtil.getAPI(from: "ChatMessages")
+            if let chatMessages = UserDefaults.standard.string(forKey: "ChatMessages") {
+                if let jsonData = chatMessages.data(using: .utf8) {
+                    do {
+                        let messages = try JSONDecoder().decode([ChatMessages].self, from: jsonData)
+                        
+                        for message in messages {
+                            let chatMessage = ChatMessage(message: message.Content, isUser: self.currentUserId == message.iduser)    //Crea mensaje ordenado
+                            newMessages.append(chatMessage)     //Añade el mensaje a la lista de ordenados
+                            print("AÑADIENDO: \(chatMessage.message)")
+                        }
+                        
+                        self.orderedMessages = newMessages
+                        print("LISTA DE MENSAJES: \(self.orderedMessages)")
+                        
+                        tableView.reloadData()
+                        
+                        
+                    } catch {
+                        print("Error decoding JSON: \(error)")
+                    }
+                }
+            } else {
+                print("Chat is Disconnected")
+            }
+        }
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+// ------------------------------------
     
 
     override func viewDidLoad() {
@@ -87,6 +226,14 @@ class LiveChatViewController: UIViewController {
         //Set up GIF Loader
         let loadingGIF = UIImage.gifImageWithName("LoadingTransparent")
         photoIMG.image = loadingGIF
+        
+        //Delete all messages from chat
+        UserDefaults.standard.set("", forKey: "ChatMessages")    //Guarda en el UserDefaults <table>
+        
+        let nib = UINib(nibName: "MessageTableViewCell", bundle: nil)
+        messageTableView.register(nib, forCellReuseIdentifier: "MessageTableViewCell")
+        messageTableView.delegate = self
+        messageTableView.dataSource = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -174,6 +321,11 @@ class LiveChatViewController: UIViewController {
     }
 
     
+    @objc func imageTapped(_ sender: UITapGestureRecognizer) {
+        //Segue to Image Window
+        performSegue(withIdentifier: "circuitInfo", sender: photoIMG)
+    }
+    
     
     func convertStringToArray(_ input: String) -> [String]? {
         // Remove brackets and split the string by commas
@@ -238,10 +390,8 @@ class LiveChatViewController: UIViewController {
    
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        
-        //Call ChatBox segue
-        //performSegue(withIdentifier: "showChat", sender: self)
+        super.viewDidAppear(animated)
+        self.messageTableView?.reloadData()
 
         // Hide the tab bar
         if let tabBarController = self.tabBarController {
@@ -250,6 +400,8 @@ class LiveChatViewController: UIViewController {
     }
     
     
+    
+// ----------------------------------- STRUCTS
     
     struct Circuit: Codable {
         let idCircuits: String
@@ -261,6 +413,23 @@ class LiveChatViewController: UIViewController {
         let Flag: String
         let Date: String
         let ExtraInfo: String
+    }
+    
+    struct ChatMessage {
+        let message: String
+        let isUser: Bool
+    }
+    
+    struct ChatMessages: Codable {
+        let idChatMessages: String
+        let iduser: String
+        let Content: String
+        let Timestamp: String
+    }
+    
+    struct ChatUser: Codable {
+        let idChatUsers: String
+        let Username: String
     }
     
 

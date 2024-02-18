@@ -15,6 +15,8 @@
 		524FF02B2B76A29300E67D5C /* ChatBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524FF02A2B76A29300E67D5C /* ChatBoxViewController.swift */; };
 		524FF02D2B76A41600E67D5C /* BottomSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524FF02C2B76A41600E67D5C /* BottomSheetPresentationController.swift */; };
 		524FF02F2B76A68200E67D5C /* BottomSheetSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524FF02E2B76A68200E67D5C /* BottomSheetSegue.swift */; };
+		5256CB8E2B80DCF4009BBF61 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5256CB8C2B80DCF4009BBF61 /* MessageTableViewCell.swift */; };
+		5256CB8F2B80DCF4009BBF61 /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5256CB8D2B80DCF4009BBF61 /* MessageTableViewCell.xib */; };
 		52628E2F2B619826000249E8 /* APIUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52628E2E2B619826000249E8 /* APIUtil.swift */; };
 		5274C9782B616B7000D2310A /* StandingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5274C9772B616B7000D2310A /* StandingsViewController.swift */; };
 		5274C97A2B616D3700D2310A /* DriverStandingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5274C9792B616D3700D2310A /* DriverStandingsViewController.swift */; };
@@ -77,6 +79,8 @@
 		524FF02A2B76A29300E67D5C /* ChatBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBoxViewController.swift; sourceTree = "<group>"; };
 		524FF02C2B76A41600E67D5C /* BottomSheetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetPresentationController.swift; sourceTree = "<group>"; };
 		524FF02E2B76A68200E67D5C /* BottomSheetSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetSegue.swift; sourceTree = "<group>"; };
+		5256CB8C2B80DCF4009BBF61 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
+		5256CB8D2B80DCF4009BBF61 /* MessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
 		52628E2E2B619826000249E8 /* APIUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUtil.swift; sourceTree = "<group>"; };
 		5274C9772B616B7000D2310A /* StandingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandingsViewController.swift; sourceTree = "<group>"; };
 		5274C9792B616D3700D2310A /* DriverStandingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverStandingsViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +149,8 @@
 		5289FDC22B5FFC06001FCDCE = {
 			isa = PBXGroup;
 			children = (
+				5256CB8C2B80DCF4009BBF61 /* MessageTableViewCell.swift */,
+				5256CB8D2B80DCF4009BBF61 /* MessageTableViewCell.xib */,
 				524FF02E2B76A68200E67D5C /* BottomSheetSegue.swift */,
 				524FF02C2B76A41600E67D5C /* BottomSheetPresentationController.swift */,
 				524FF02A2B76A29300E67D5C /* ChatBoxViewController.swift */,
@@ -336,6 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5289FDDB2B5FFC08001FCDCE /* LaunchScreen.storyboard in Resources */,
+				5256CB8F2B80DCF4009BBF61 /* MessageTableViewCell.xib in Resources */,
 				52A569242B63E6E4009F39E9 /* TracksTableViewCell.xib in Resources */,
 				5289FDD82B5FFC08001FCDCE /* Assets.xcassets in Resources */,
 				5213C8242B641C5C007A3E3B /* GoogleService-Info.plist in Resources */,
@@ -373,6 +380,7 @@
 				5274C97A2B616D3700D2310A /* DriverStandingsViewController.swift in Sources */,
 				52F1D7BE2B696A830035887D /* StandingsTableViewCell.swift in Sources */,
 				5289FE012B603AF1001FCDCE /* SpeedTestViewController.swift in Sources */,
+				5256CB8E2B80DCF4009BBF61 /* MessageTableViewCell.swift in Sources */,
 				5274C97C2B6170FC00D2310A /* F1TabBarController.swift in Sources */,
 				527DD0CD2B62CD72003D13F6 /* DriverTableViewCell.swift in Sources */,
 				5274C9822B6189A700D2310A /* TeamsViewController.swift in Sources */,
