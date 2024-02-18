@@ -13,8 +13,10 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
     var registered = false
     var currentUsername = ""
     var currentUserId = ""
-    var orderedMessages: [ChatMessage] = [ChatMessage(message: "", isUser: false)]
+    var orderedMessages: [ChatMessage] = [ChatMessage(message: "", isUser: false, username: "")]
+    var chatJoinTimestamp: Date? = nil
     var timer: Timer?   //Timer to load chat messages
+    var newMessages: [ChatMessage] = []    //create new list of messages
     
     @IBOutlet var vcView: UIView!   //Whole View Controller View
     
@@ -51,9 +53,11 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
         
         if (orderedMessages[indexPath.row].isUser) {    //My Message
             cell.messageTXT.textAlignment = .right
+            cell.usernameTXT.text = orderedMessages[indexPath.row].username
             cell.messageTXT.text = orderedMessages[indexPath.row].message
         } else {    //Others Message
             cell.messageTXT.textAlignment = .left
+            cell.usernameTXT.text = orderedMessages[indexPath.row].username
             cell.messageTXT.text = orderedMessages[indexPath.row].message
         }
         
@@ -71,7 +75,10 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
             print("Username is Empty");
         } else {    //Enters CHAT
             do {
-                APIUtil.postToChatUsers(username: usernameTXT.text!)
+                chatJoinTimestamp = Date()  //Gets chat join timestamp
+                print("Joined chat on: \(chatJoinTimestamp)")
+                
+                //APIUtil.postToChatUsers(username: usernameTXT.text!)
                 currentUsername = usernameTXT.text!
                 
                 registered = !registered
@@ -129,10 +136,8 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     func loadChat(_ tableView: UITableView) {
-        var newMessages: [ChatMessage] = []    //create new list of messages
         
-        
-        if (self.currentUserId == "") {     //We don´t have our User_Id
+        if (self.currentUserId == "") {     //We don´t have our User_Id ----> We get it
             APIUtil.getUserId(forUsername: self.currentUsername) { result in
                 switch result {
                 case .success(let userId):
@@ -140,35 +145,7 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
                         print("User ID: \(userId) for USERNAME: \(self.currentUsername)")
                         self.currentUserId = userId     //Obtenemos ID del Sender
                         
-                        
-                        
-                        APIUtil.getAPI(from: "ChatMessages")
-                        if let chatMessages = UserDefaults.standard.string(forKey: "ChatMessages") {
-                            if let jsonData = chatMessages.data(using: .utf8) {
-                                do {
-                                    let messages = try JSONDecoder().decode([ChatMessages].self, from: jsonData)
-                                    
-                                    for message in messages {
-                                        let chatMessage = ChatMessage(message: message.Content, isUser: self.currentUserId == message.iduser)    //Crea mensaje ordenado
-                                        newMessages.append(chatMessage)     //Añade el mensaje a la lista de ordenados
-                                        print("AÑADIENDO: \(chatMessage.message)")
-                                    }
-                                    
-                                    self.orderedMessages = newMessages
-                                    print("LISTA DE MENSAJES: \(self.orderedMessages)")
-                                    
-                                    tableView.reloadData()
-                                    
-                                    
-                                } catch {
-                                    print("Error decoding JSON: \(error)")
-                                }
-                            }
-                        } else {
-                            print("Chat is Disconnected")
-                        }
-                        
-                        
+                        self.messageGet()
                         
                     } else {
                         print("User not found.")
@@ -179,38 +156,80 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 
                 
-                
             }
         } else {    //We have the User_Id
-            APIUtil.getAPI(from: "ChatMessages")
-            if let chatMessages = UserDefaults.standard.string(forKey: "ChatMessages") {
-                if let jsonData = chatMessages.data(using: .utf8) {
-                    do {
-                        let messages = try JSONDecoder().decode([ChatMessages].self, from: jsonData)
-                        
-                        for message in messages {
-                            let chatMessage = ChatMessage(message: message.Content, isUser: self.currentUserId == message.iduser)    //Crea mensaje ordenado
-                            newMessages.append(chatMessage)     //Añade el mensaje a la lista de ordenados
-                            print("AÑADIENDO: \(chatMessage.message)")
-                        }
-                        
-                        self.orderedMessages = newMessages
-                        print("LISTA DE MENSAJES: \(self.orderedMessages)")
-                        
-                        tableView.reloadData()
-                        
-                        
-                    } catch {
-                        print("Error decoding JSON: \(error)")
-                    }
-                }
-            } else {
-                print("Chat is Disconnected")
-            }
+            messageGet()
         }
         
         
     }
+    
+    
+    // --------- Chat Utility Functions
+    
+    func messageGet() {
+        self.newMessages = []
+        
+        APIUtil.getAPI(from: "ChatMessages")
+        if let chatMessages = UserDefaults.standard.string(forKey: "ChatMessages") {
+            if let jsonData = chatMessages.data(using: .utf8) {
+                do {
+                    let messages = try JSONDecoder().decode([ChatMessages].self, from: jsonData)
+                    
+                    for message in messages {
+                        //Check for message timestamp (MessageTimestamp >= ChatJoinTimestamp)
+                        if (compareDates(stringToDate(timestamp: message.Timestamp), self.chatJoinTimestamp)) {      //Message is a new message
+                            //Gets Users Username
+                            
+                            
+                            let messageUser = APIUtil.getUsername(forUserId: message.iduser)
+                            
+                            let chatMessage = ChatMessage(message: message.Content, isUser: self.currentUserId == message.iduser, username: messageUser!)    //Crea mensaje ordenado
+                            self.newMessages.append(chatMessage)     //Añade el mensaje a la lista de ordenados
+                            print("NewMessages    ADDED: \(self.newMessages)")
+                            print("AÑADIENDO: \(chatMessage.message), USER: \(chatMessage.username)")
+                            
+                        } else {    //It is an old message
+                            //Ignorar el mensaje
+                        }
+                    }
+                    
+                    print("NewMessages: \(self.newMessages)")
+                    self.orderedMessages = self.newMessages
+                    print("LISTA DE MENSAJES: \(self.orderedMessages)")
+                    
+                    messageTableView.reloadData()
+                    
+                    
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            }
+        } else {
+            print("Chat is Disconnected")
+        }
+    }
+    
+    
+    
+    func stringToDate(timestamp: String) -> Date? {
+        let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            
+            return dateFormatter.date(from: timestamp)
+    }
+    
+    func compareDates(_ date1: Date?, _ date2: Date?) -> Bool {
+        // If either date is nil, return false
+        guard let unwrappedDate1 = date1, let unwrappedDate2 = date2 else {
+            return false
+        }
+        
+        // Use the comparison operator on the unwrapped dates
+        return unwrappedDate1 >= unwrappedDate2
+    }
+    
+    
     
     
     
@@ -418,6 +437,7 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
     struct ChatMessage {
         let message: String
         let isUser: Bool
+        let username: String
     }
     
     struct ChatMessages: Codable {

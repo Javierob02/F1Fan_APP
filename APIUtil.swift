@@ -117,7 +117,11 @@ class APIUtil {
                     iduser = "99999"
                 }
                 
-                let postData: [String: Any] = ["table": "ChatMessages", "iduser": iduser, "content": message, "timestamp": "2024-02-09 12:00:00"]
+                //DateFormatter for Date() --> String()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                
+                let postData: [String: Any] = ["table": "ChatMessages", "iduser": iduser, "content": message, "timestamp": dateFormatter.string(from: Date())]      //Message to be sent
 
                 do {
                     request.httpBody = try JSONSerialization.data(withJSONObject: postData)
@@ -196,6 +200,32 @@ class APIUtil {
             }
         }.resume()
     }
+    
+    
+    static func getUsername(forUserId userId: String) -> String? {
+        let apiUrl = "http://localhost/F1API/api.php?table=ChatUsers"
+        
+        guard let url = URL(string: apiUrl) else {
+            return "network error"
+        }
+
+        do {
+            let data = try Data(contentsOf: url)
+            let users = try JSONDecoder().decode([ChatUser].self, from: data)
+
+            if let username = users.first(where: { $0.idChatUsers == userId })?.Username {
+                print("USERID: \(userId) = USERNAME: \(username)")
+                return username
+            } else {
+                return nil
+            }
+        } catch {
+            print("Error during data task: \(error)")
+            return "network error"
+        }
+    }
+
+
     
     
     

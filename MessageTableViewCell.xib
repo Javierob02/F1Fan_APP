@@ -16,26 +16,35 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="....." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kh8-0y-8vv">
-                        <rect key="frame" x="5" y="2" width="310" height="40"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kh8-0y-8vv">
+                        <rect key="frame" x="5" y="21.666666666666671" width="310" height="20.333333333333329"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYs-Ya-WAx">
+                        <rect key="frame" x="5" y="2" width="310" height="11"/>
+                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="9"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <color key="backgroundColor" red="0.92156863209999995" green="0.92156857250000002" blue="0.92156857250000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="Kh8-0y-8vv" secondAttribute="trailing" constant="5" id="Dbu-ig-qhH"/>
-                    <constraint firstItem="Kh8-0y-8vv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="NAo-SM-gOf"/>
-                    <constraint firstItem="Kh8-0y-8vv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="Sfu-Lq-aYK"/>
-                    <constraint firstAttribute="bottom" secondItem="Kh8-0y-8vv" secondAttribute="bottom" constant="2" id="rb7-yT-6jl"/>
+                    <constraint firstAttribute="bottom" secondItem="Kh8-0y-8vv" secondAttribute="bottom" constant="2" id="1O2-sT-yfM"/>
+                    <constraint firstAttribute="trailing" secondItem="Kh8-0y-8vv" secondAttribute="trailing" constant="5" id="7SJ-FN-EKa"/>
+                    <constraint firstItem="bYs-Ya-WAx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="8pg-MD-Fju"/>
+                    <constraint firstAttribute="trailing" secondItem="bYs-Ya-WAx" secondAttribute="trailing" constant="5" id="Q5u-Bs-pNr"/>
+                    <constraint firstItem="Kh8-0y-8vv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="aoz-4E-NbC"/>
+                    <constraint firstItem="bYs-Ya-WAx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="zib-Zi-29a"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="messageTXT" destination="Kh8-0y-8vv" id="Ra8-Jg-E9J"/>
+                <outlet property="usernameTXT" destination="bYs-Ya-WAx" id="8dO-50-9hc"/>
             </connections>
-            <point key="canvasLocation" x="90" y="21"/>
+            <point key="canvasLocation" x="88.549618320610676" y="20.422535211267608"/>
         </tableViewCell>
     </objects>
 </document>
