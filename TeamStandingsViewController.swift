@@ -9,6 +9,7 @@ import UIKit
 
 class TeamStandingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var allTeams: [Team] = []
+    var refreshControl = UIRefreshControl()
 
     @IBOutlet weak var standingsTableView: UITableView!
     
@@ -53,7 +54,6 @@ class TeamStandingsViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         //Load TableView
         let nib = UINib(nibName: "StandingsTableViewCell", bundle: nil)
         standingsTableView.register(nib, forCellReuseIdentifier: "StandingsTableViewCell")
@@ -61,25 +61,18 @@ class TeamStandingsViewController: UIViewController, UITableViewDelegate, UITabl
         standingsTableView.dataSource = self
         standingsTableView.rowHeight = 110
         
-        //Obtaining data from API for Teams
-        APIUtil.getAPI(from: "Teams")
-        if let teamsData = UserDefaults.standard.string(forKey: "Teams") {
-            if let jsonData = teamsData.data(using: .utf8) {
-                do {
-                    let teams = try JSONDecoder().decode([Team].self, from: jsonData)
-                    allTeams = orderTeamsByTotalPoints(teams: teams)
-                    print("Lista de Teams actualizada")
-                } catch {
-                    print("Error decoding JSON: \(error)")
-                }
-            }
-        } else {
-            print("Teams doesn´t exist in UserDefaults")
-        }
+        //Add Refresh Control
+        refreshControl.addTarget(self, action: #selector(getRefreshData(_:)), for: .valueChanged)
+        refreshControl.tintColor = UIColor(red: 0.92, green: 0.22, blue: 0.21, alpha: 1.00)
+        standingsTableView.addSubview(refreshControl)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        //Obtaining data from API for Teams
+        getTeamData()
 
         // Hide the tab bar
         if let tabBarController = self.tabBarController {
@@ -99,6 +92,46 @@ class TeamStandingsViewController: UIViewController, UITableViewDelegate, UITabl
         let Driver2Photo: String
         let Points: String
         let TotalPoints: String //INT
+    }
+    
+    
+    // ---------------------- API CALL FUNCTIONS
+    
+    func getTeamData() {
+        APIUtil.getAPI(from: "Teams")
+        if let teamsData = UserDefaults.standard.string(forKey: "Teams") {
+            if let jsonData = teamsData.data(using: .utf8) {
+                do {
+                    let teams = try JSONDecoder().decode([Team].self, from: jsonData)
+                    allTeams = orderTeamsByTotalPoints(teams: teams)
+                    standingsTableView.reloadData()
+                    print("Lista de Teams actualizada")
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            }
+        } else {
+            print("Teams doesn´t exist in UserDefaults")
+        }
+    }
+    
+    @objc private func getRefreshData(_ sender: Any) {
+        APIUtil.getAPI(from: "Teams")
+        if let teamsData = UserDefaults.standard.string(forKey: "Teams") {
+            if let jsonData = teamsData.data(using: .utf8) {
+                do {
+                    let teams = try JSONDecoder().decode([Team].self, from: jsonData)
+                    allTeams = orderTeamsByTotalPoints(teams: teams)
+                    standingsTableView.reloadData()
+                    refreshControl.endRefreshing()
+                    print("Lista de Teams actualizada")
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            }
+        } else {
+            print("Teams doesn´t exist in UserDefaults")
+        }
     }
 
     /*

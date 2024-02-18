@@ -9,6 +9,7 @@ import UIKit
 
 class NewsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var allNews: [News] = []
+    var refreshControl = UIRefreshControl()
     
     @IBOutlet weak var newsTableView: UITableView!
     
@@ -56,33 +57,18 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
         newsTableView.delegate = self
         newsTableView.dataSource = self
         newsTableView.rowHeight = 250
-
-        // Do any additional setup after loading the view.
-        //Obtaining data from API for Drivers
-        APIUtil.getAPI(from: "News")
-        if let driversData = UserDefaults.standard.string(forKey: "News") {
-            if let jsonData = driversData.data(using: .utf8) {
-                do {
-                    let news = try JSONDecoder().decode([News].self, from: jsonData)
-                    allNews = news
-                    //filteredDrivers = allDrivers
-                    print("Lista de News actualizada")
-                } catch {
-                    print("Error decoding JSON: \(error)")
-                }
-            }
-        } else {
-            print("News doesn´t exist in UserDefaults")
-        }
+        
+        //Add Refresh Control
+        refreshControl.addTarget(self, action: #selector(getRefreshData(_:)), for: .valueChanged)
+        refreshControl.tintColor = UIColor(red: 0.92, green: 0.22, blue: 0.21, alpha: 1.00)
+        newsTableView.addSubview(refreshControl)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        // Hide the tab bar
-        if let tabBarController = self.tabBarController {
-            tabBarController.tabBar.isHidden = false
-        }
+        
+        //Obtaining data from API for Drivers
+        getNewsData()
     }
     
     
@@ -106,6 +92,59 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
         let Description: String
         let Images: String
         let date: String
+    }
+    
+    
+    
+    // ---------------------- API CALL FUNCTIONS
+    
+    func getNewsData() {
+        APIUtil.getAPI(from: "News")
+        if let driversData = UserDefaults.standard.string(forKey: "News") {
+            if let jsonData = driversData.data(using: .utf8) {
+                do {
+                    let news = try JSONDecoder().decode([News].self, from: jsonData)
+                    allNews = news
+                    newsTableView.reloadData()
+                    //filteredDrivers = allDrivers
+                    print("Lista de News actualizada")
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            }
+        } else {
+            print("News doesn´t exist in UserDefaults")
+        }
+
+        // Hide the tab bar
+        if let tabBarController = self.tabBarController {
+            tabBarController.tabBar.isHidden = false
+        }
+    }
+    
+    @objc private func getRefreshData(_ sender: Any) {
+        APIUtil.getAPI(from: "News")
+        if let driversData = UserDefaults.standard.string(forKey: "News") {
+            if let jsonData = driversData.data(using: .utf8) {
+                do {
+                    let news = try JSONDecoder().decode([News].self, from: jsonData)
+                    allNews = news
+                    //filteredDrivers = allDrivers
+                    newsTableView.reloadData()
+                    refreshControl.endRefreshing()
+                    print("Lista de News actualizada")
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            }
+        } else {
+            print("News doesn´t exist in UserDefaults")
+        }
+
+        // Hide the tab bar
+        if let tabBarController = self.tabBarController {
+            tabBarController.tabBar.isHidden = false
+        }
     }
     
 

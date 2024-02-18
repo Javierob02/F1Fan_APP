@@ -80,29 +80,15 @@ class DriversViewController: UIViewController, UITableViewDelegate, UITableViewD
         driverTableView.dataSource = self
         driverTableView.rowHeight = 520
         searchBar.delegate = self
-
-        //Obtaining data from API for Drivers
-        APIUtil.getAPI(from: "Drivers")
-        if let driversData = UserDefaults.standard.string(forKey: "Drivers") {
-            if let jsonData = driversData.data(using: .utf8) {
-                do {
-                    let drivers = try JSONDecoder().decode([Driver].self, from: jsonData)
-                    allDrivers = drivers
-                    filteredDrivers = allDrivers
-                    print("Lista de Drivers actualizada")
-                } catch {
-                    print("Error decoding JSON: \(error)")
-                }
-            }
-        } else {
-            print("Drivers doesn´t exist in UserDefaults")
-        }
     }
     
 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        //Obtaining data from API for Drivers
+        getDriverData()
 
         // Hide the tab bar
         if let tabBarController = self.tabBarController {
@@ -124,6 +110,31 @@ class DriversViewController: UIViewController, UITableViewDelegate, UITableViewD
         var Flag: String
         let Points: String
         let TotalPoints: String //INT
+    }
+    
+    
+    
+    
+    
+    // ---------------------- API CALL FUNCTIONS
+    
+    func getDriverData() {
+        APIUtil.getAPI(from: "Drivers")
+        if let driversData = UserDefaults.standard.string(forKey: "Drivers") {
+            if let jsonData = driversData.data(using: .utf8) {
+                do {
+                    let drivers = try JSONDecoder().decode([Driver].self, from: jsonData)
+                    allDrivers = drivers
+                    filteredDrivers = allDrivers
+                    driverTableView.reloadData()
+                    print("Lista de Drivers actualizada")
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            }
+        } else {
+            print("Drivers doesn´t exist in UserDefaults")
+        }
     }
     
 

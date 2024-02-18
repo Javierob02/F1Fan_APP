@@ -91,28 +91,13 @@ class TracksViewController: UIViewController, UITableViewDataSource, UITableView
         tracksTableView.dataSource = self
         tracksTableView.rowHeight = 240
         searchBar.delegate = self
-
-
-        //Obtaining data from API for Circuits
-        APIUtil.getAPI(from: "Circuits")
-        if let circuitsData = UserDefaults.standard.string(forKey: "Circuits") {
-            if let jsonData = circuitsData.data(using: .utf8) {
-                do {
-                    let circuits = try JSONDecoder().decode([Circuit].self, from: jsonData)
-                    allCircuits = circuits    //Actualiza la lista de circuitos
-                    filteredCircuits = allCircuits
-                    print("Lista de Circuits actualizada")
-                } catch {
-                    print("Error decoding JSON: \(error)")
-                }
-            }
-        } else {
-            print("Circuits doesn´t exist in UserDefaults")
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        //Obtaining data from API for Circuits
+        getTrackData()
 
         // Hide the tab bar
         if let tabBarController = self.tabBarController {
@@ -132,6 +117,29 @@ class TracksViewController: UIViewController, UITableViewDataSource, UITableView
         let Flag: String
         let Date: String
         let ExtraInfo: String
+    }
+    
+    
+    
+    // ---------------------- API CALL FUNCTIONS
+    
+    func getTrackData() {
+        APIUtil.getAPI(from: "Circuits")
+        if let circuitsData = UserDefaults.standard.string(forKey: "Circuits") {
+            if let jsonData = circuitsData.data(using: .utf8) {
+                do {
+                    let circuits = try JSONDecoder().decode([Circuit].self, from: jsonData)
+                    allCircuits = circuits    //Actualiza la lista de circuitos
+                    filteredCircuits = allCircuits
+                    tracksTableView.reloadData()
+                    print("Lista de Circuits actualizada")
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            }
+        } else {
+            print("Circuits doesn´t exist in UserDefaults")
+        }
     }
     
 

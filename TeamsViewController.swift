@@ -100,32 +100,13 @@ class TeamsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         teamsTableView.rowHeight = 250
         searchBar.delegate = self
 
-        //Obtaining data from API for Teams
-        let table = "Teams"
-        APIUtil.getAPI(from: table)
-        if let teamsData = UserDefaults.standard.string(forKey: table) {
-            if let jsonData = teamsData.data(using: .utf8) {
-                do {
-                    let teams = try JSONDecoder().decode([Team].self, from: jsonData)
-                    allTeams = teams    //Actualiza la lista de equipos
-                    filteredTeams = teams
-                    print("Lista de Teams actualizada")
-                } catch {
-                    print("Error decoding JSON: \(error)")
-                }
-            }
-        } else {
-            print("Teams doesn´t exist in UserDefaults")
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        // Hide the tab bar
-        if let tabBarController = self.tabBarController {
-            tabBarController.tabBar.isHidden = true
-        }
+        
+        //Obtaining data from API for Teams
+        getTeamData()
     }
     
     
@@ -141,6 +122,37 @@ class TeamsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let Points: String
         let TotalPoints: String //INT
     }
+    
+    
+    
+    
+    // ---------------------- API CALL FUNCTIONS
+    
+    func getTeamData() {
+        let table = "Teams"
+        APIUtil.getAPI(from: table)
+        if let teamsData = UserDefaults.standard.string(forKey: table) {
+            if let jsonData = teamsData.data(using: .utf8) {
+                do {
+                    let teams = try JSONDecoder().decode([Team].self, from: jsonData)
+                    allTeams = teams    //Actualiza la lista de equipos
+                    filteredTeams = teams
+                    teamsTableView.reloadData()
+                    print("Lista de Teams actualizada")
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            }
+        } else {
+            print("Teams doesn´t exist in UserDefaults")
+        }
+
+        // Hide the tab bar
+        if let tabBarController = self.tabBarController {
+            tabBarController.tabBar.isHidden = true
+        }
+    }
+    
     
 
     /*

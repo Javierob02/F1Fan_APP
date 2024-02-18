@@ -9,6 +9,7 @@ import UIKit
 
 class DriverStandingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var allDrivers: [Driver] = []
+    var refreshControl = UIRefreshControl()
 
     @IBOutlet weak var standingsTableView: UITableView!
     
@@ -63,25 +64,17 @@ class DriverStandingsViewController: UIViewController, UITableViewDelegate, UITa
         standingsTableView.dataSource = self
         standingsTableView.rowHeight = 110
         
-        //Obtaining data from API for Drivers
-        APIUtil.getAPI(from: "Drivers")
-        if let driversData = UserDefaults.standard.string(forKey: "Drivers") {
-            if let jsonData = driversData.data(using: .utf8) {
-                do {
-                    let drivers = try JSONDecoder().decode([Driver].self, from: jsonData)
-                    allDrivers = orderDriversByTotalPoints(drivers: drivers)
-                    print("Lista de Drivers actualizada")
-                } catch {
-                    print("Error decoding JSON: \(error)")
-                }
-            }
-        } else {
-            print("Drivers doesn´t exist in UserDefaults")
-        }
+        //Add Refresh Control
+        refreshControl.addTarget(self, action: #selector(getRefreshData(_:)), for: .valueChanged)
+        refreshControl.tintColor = UIColor(red: 0.92, green: 0.22, blue: 0.21, alpha: 1.00)
+        standingsTableView.addSubview(refreshControl)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        //Obtaining data from API for Drivers
+        getDriverData()
 
         // Hide the tab bar
         if let tabBarController = self.tabBarController {
@@ -102,6 +95,48 @@ class DriverStandingsViewController: UIViewController, UITableViewDelegate, UITa
         let TotalPoints: String //INT
     }
     
+    
+    
+    
+    
+    // ---------------------- API CALL FUNCTIONS
+    
+    func getDriverData() {
+        APIUtil.getAPI(from: "Drivers")
+        if let driversData = UserDefaults.standard.string(forKey: "Drivers") {
+            if let jsonData = driversData.data(using: .utf8) {
+                do {
+                    let drivers = try JSONDecoder().decode([Driver].self, from: jsonData)
+                    allDrivers = orderDriversByTotalPoints(drivers: drivers)
+                    standingsTableView.reloadData()
+                    print("Lista de Drivers actualizada")
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            }
+        } else {
+            print("Drivers doesn´t exist in UserDefaults")
+        }
+    }
+    
+    @objc private func getRefreshData(_ sender: Any) {
+        APIUtil.getAPI(from: "Drivers")
+        if let driversData = UserDefaults.standard.string(forKey: "Drivers") {
+            if let jsonData = driversData.data(using: .utf8) {
+                do {
+                    let drivers = try JSONDecoder().decode([Driver].self, from: jsonData)
+                    allDrivers = orderDriversByTotalPoints(drivers: drivers)
+                    standingsTableView.reloadData()
+                    refreshControl.endRefreshing()
+                    print("Lista de Drivers actualizada")
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            }
+        } else {
+            print("Drivers doesn´t exist in UserDefaults")
+        }
+    }
     
     
 
