@@ -23,6 +23,7 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
     //Chat
     @IBOutlet weak var messageTableView: UITableView!
     @IBOutlet weak var messageTXB: UITextField!
+    @IBOutlet weak var exitBTN: UIButton!
     
     //Chat cover
     @IBOutlet weak var coverView: UIView!
@@ -53,12 +54,16 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
         
         if (orderedMessages[indexPath.row].isUser) {    //My Message
             cell.messageTXT.textAlignment = .right
+            cell.usernameTXT.textAlignment = .right
             cell.usernameTXT.text = orderedMessages[indexPath.row].username
             cell.messageTXT.text = orderedMessages[indexPath.row].message
+            cell.usernameTXT.textColor = UIColor(red: 0.92, green: 0.22, blue: 0.21, alpha: 1.00)   //Set text to signatura red
         } else {    //Others Message
             cell.messageTXT.textAlignment = .left
+            cell.usernameTXT.textAlignment = .left
             cell.usernameTXT.text = orderedMessages[indexPath.row].username
             cell.messageTXT.text = orderedMessages[indexPath.row].message
+            cell.usernameTXT.textColor = UIColor.black
         }
         
         print("ROW: \(indexPath.row) | MESSAGE: \(orderedMessages[indexPath.row].message)")
@@ -78,8 +83,9 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
                 chatJoinTimestamp = Date()  //Gets chat join timestamp
                 print("Joined chat on: \(chatJoinTimestamp)")
                 
-                //APIUtil.postToChatUsers(username: usernameTXT.text!)
+                APIUtil.postToChatUsers(username: usernameTXT.text!)
                 currentUsername = usernameTXT.text!
+                usernameTXT.text = ""
                 
                 registered = !registered
                 
@@ -87,6 +93,7 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
                 labelTXT.isHidden = registered
                 usernameTXT.isHidden = registered
                 joinOUTLET.isHidden = registered
+                exitBTN.isHidden = !registered
                 
                 print("You joined the Chat!!");
                 
@@ -110,6 +117,24 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
         messageTXB.text = "";
     }
     
+    @IBAction func exitChat(_ sender: Any) {
+        //Stop Timer
+        stopChat()
+        //Marcar como No Registrado
+        registered = !registered
+        //Hide Chat + Return Join Page
+        coverView.isHidden = registered
+        labelTXT.isHidden = registered
+        usernameTXT.isHidden = registered
+        joinOUTLET.isHidden = registered
+        //Restart Variables
+        currentUsername = ""
+        currentUserId = ""
+        //Esconder botón de "Exit Chat"
+        exitBTN.isHidden = !registered
+        
+        print("You have left the Chat!!");
+    }
     
     
 // ----------------------- Chat Logic
@@ -199,6 +224,7 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
                     print("LISTA DE MENSAJES: \(self.orderedMessages)")
                     
                     messageTableView.reloadData()
+                    scrollToBottom()
                     
                     
                 } catch {
@@ -264,6 +290,7 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
         labelTXT.isHidden = registered
         usernameTXT.isHidden = registered
         joinOUTLET.isHidden = registered
+        exitBTN.isHidden = !registered
 
         // Do any additional setup after loading the view.
         //Obtaining data from API for Circuits
@@ -383,6 +410,13 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
         messageTableView.layer.borderWidth = 0.7
         messageTableView.layer.borderColor = UIColor.darkGray.cgColor
     
+    }
+    
+    func scrollToBottom() {
+        if orderedMessages.count > 0 {
+            let indexPath = IndexPath(row: orderedMessages.count - 1, section: 0)
+            messageTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
     }
     
     
