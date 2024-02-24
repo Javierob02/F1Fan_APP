@@ -14,6 +14,11 @@ class CircuitInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Hide the tab bar
+        if let tabBarController = self.tabBarController {
+            tabBarController.tabBar.isHidden = true
+        }
+        
         photoIMG.transform = photoIMG.transform.rotated(by: CGFloat(Double.pi / 2)) //90 degree
         
         // Do any additional setup after loading the view.

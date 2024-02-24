@@ -293,44 +293,6 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
         exitBTN.isHidden = !registered
 
         // Do any additional setup after loading the view.
-        //Obtaining data from API for Circuits
-        APIUtil.getAPI(from: "Circuits")
-        if let circuitsData = UserDefaults.standard.string(forKey: "Circuits") {
-            if let jsonData = circuitsData.data(using: .utf8) {
-                do {
-                    let circuits = try JSONDecoder().decode([Circuit].self, from: jsonData)
-                    //Setting current circuit
-                    let currentCircuit = closestCircuit(circuits: circuits)
-                    let circuitInfo = convertStringToArray(currentCircuit!.ExtraInfo)
-                    print(circuitInfo)
-                    //Setting data
-                    circuitNameLBL.text = currentCircuit?.Name
-                    FirebaseUtil.getImage(withPath: currentCircuit!.Photo) { image in
-                        if let image = image {
-                            DispatchQueue.main.async {
-                                //Set ImageName
-                                UserDefaults.standard.set(currentCircuit?.Photo, forKey: "currentCircuit")
-                                self.photoIMG.image = image
-                                print("Image loaded succesfully")
-                            }
-                        } else {
-                            print("Image download failed")
-                        }
-                    }
-                    lapsLBL.text = "Nº Laps: " + circuitInfo![0]
-                    turnsLBL.text = "Nº Turns: " + currentCircuit!.Turns
-                    recordLBL.text = "Record:" + circuitInfo![1]
-                    drsLBL.text = "Nº DRS Zones: " + circuitInfo![2]
-                    lengthLBL.text = "Length: " + currentCircuit!.Length
-                    countryLBL.text = "Country: " + currentCircuit!.Country
-                    
-                } catch {
-                    print("Error decoding JSON: \(error)")
-                }
-            }
-        } else {
-            print("Circuits doesn´t exist in UserDefaults")
-        }
         
         //Image gesture
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
@@ -369,7 +331,8 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func imageTapped(_ sender: UITapGestureRecognizer) {
         //Segue to Image Window
-        performSegue(withIdentifier: "circuitInfo", sender: photoIMG)
+        //performSegue(withIdentifier: "circuitInfo", sender: photoIMG)
+        performSegue(withIdentifier: "raceInfo", sender: photoIMG)
     }
     
     
@@ -444,6 +407,46 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        //Obtaining data from API for Circuits
+        APIUtil.getAPI(from: "Circuits")
+        if let circuitsData = UserDefaults.standard.string(forKey: "Circuits") {
+            if let jsonData = circuitsData.data(using: .utf8) {
+                do {
+                    let circuits = try JSONDecoder().decode([Circuit].self, from: jsonData)
+                    //Setting current circuit
+                    let currentCircuit = closestCircuit(circuits: circuits)
+                    let circuitInfo = convertStringToArray(currentCircuit!.ExtraInfo)
+                    print(circuitInfo)
+                    //Setting data
+                    circuitNameLBL.text = currentCircuit?.Name
+                    FirebaseUtil.getImage(withPath: currentCircuit!.Photo) { image in
+                        if let image = image {
+                            DispatchQueue.main.async {
+                                //Set ImageName
+                                UserDefaults.standard.set(currentCircuit?.Photo, forKey: "currentCircuit")
+                                self.photoIMG.image = image
+                                print("Image loaded succesfully")
+                            }
+                        } else {
+                            print("Image download failed")
+                        }
+                    }
+                    lapsLBL.text = "Nº Laps: " + circuitInfo![0]
+                    turnsLBL.text = "Nº Turns: " + currentCircuit!.Turns
+                    recordLBL.text = "Record:" + circuitInfo![1]
+                    drsLBL.text = "Nº DRS Zones: " + circuitInfo![2]
+                    lengthLBL.text = "Length: " + currentCircuit!.Length
+                    countryLBL.text = "Country: " + currentCircuit!.Country
+                    
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            }
+        } else {
+            print("Circuits doesn´t exist in UserDefaults")
+        }
+        
         self.messageTableView?.reloadData()
 
         // Hide the tab bar

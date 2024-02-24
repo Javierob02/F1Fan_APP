@@ -224,6 +224,73 @@ class APIUtil {
             return "network error"
         }
     }
+    
+    
+    
+    //API function to get latest Race Climatology
+    static func getRaceClimatology() {
+        // API URL
+        let apiUrl = "https://api.openf1.org/v1/weather?meeting_key=latest"
+
+        // Create URL object
+        if let url = URL(string: apiUrl) {
+            // Create a URLSession task to get the data
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+
+                // Check if data is available
+                guard let data = data else {
+                    print("No data received")
+                    return
+                }
+
+                // Convert data to JSON string
+                if let jsonString = String(data: data, encoding: .utf8) {
+                    // Store the JSON string in UserDefaults
+                    UserDefaults.standard.set(jsonString, forKey: "climatology")
+                    print("Data stored in UserDefaults as JSON string")
+                }
+            }.resume()
+        }
+    }
+    
+    
+    
+    //API function to get latest Driver Radio
+    static func getDriverRadio(driverNumber: String) {
+        // API URL
+        let apiUrl = "https://api.openf1.org/v1/team_radio?session_key=latest&driver_number=" + driverNumber
+        print("FETCHING FROM: \(apiUrl)")
+
+        // Create URL object
+        if let url = URL(string: apiUrl) {
+            // Create a URLSession task to get the data
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                }
+
+                // Check if data is available
+                guard let data = data else {
+                    print("No data received")
+                    return
+                }
+
+                // Convert data to JSON string
+                if let jsonString = String(data: data, encoding: .utf8) {
+                    // Store the JSON string in UserDefaults
+                    UserDefaults.standard.set(jsonString, forKey: "radio")
+                    print("Data stored in UserDefaults as JSON string")
+                }
+            }.resume()
+        }
+    }
+
+
 
 
     
