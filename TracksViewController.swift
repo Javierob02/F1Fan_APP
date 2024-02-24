@@ -129,7 +129,7 @@ class TracksViewController: UIViewController, UITableViewDataSource, UITableView
             if let jsonData = circuitsData.data(using: .utf8) {
                 do {
                     let circuits = try JSONDecoder().decode([Circuit].self, from: jsonData)
-                    allCircuits = circuits    //Actualiza la lista de circuitos
+                    allCircuits = sortCircuitsByDate(circuits)    //Actualiza la lista de circuitos
                     filteredCircuits = allCircuits
                     tracksTableView.reloadData()
                     print("Lista de Circuits actualizada")
@@ -139,6 +139,19 @@ class TracksViewController: UIViewController, UITableViewDataSource, UITableView
             }
         } else {
             print("Circuits doesn´t exist in UserDefaults")
+        }
+    }
+    
+    
+// --------------------- Functions
+    func sortCircuitsByDate(_ circuits: [Circuit]) -> [Circuit] {
+        // Sort the circuits based on the Date property
+        return circuits.sorted { circuit1, circuit2 in
+            if let date1 = DateFormatter.customFormat.date(from: circuit1.Date),
+               let date2 = DateFormatter.customFormat.date(from: circuit2.Date) {
+                return date1 < date2
+            }
+            return false
         }
     }
     
@@ -153,4 +166,14 @@ class TracksViewController: UIViewController, UITableViewDataSource, UITableView
     }
     */
 
+}
+
+extension DateFormatter {
+    static let customFormat: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        return formatter
+    }()
 }
