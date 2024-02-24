@@ -22,7 +22,9 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = newsTableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: indexPath) as! NewsTableViewCell
         
         cell.titleLBL.text = allNews[indexPath.row].Title
-        //cell.dateLBL = String(allNews[indexPath.row].date
+        if let newsDate = extractDateOnly(from: String(allNews[indexPath.row].date)) {
+            cell.dateLBL.text = newsDate
+        }
         cell.titleLBL.text = allNews[indexPath.row].Title
         cell.contentTV.text = allNews[indexPath.row].Description
         
@@ -144,6 +146,20 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Hide the tab bar
         if let tabBarController = self.tabBarController {
             tabBarController.tabBar.isHidden = false
+        }
+    }
+    
+    func extractDateOnly(from dateString: String) -> String? {
+        let inputDateFormatter = DateFormatter()
+        inputDateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        if let inputDate = inputDateFormatter.date(from: dateString) {
+            let outputDateFormatter = DateFormatter()
+            outputDateFormatter.dateFormat = "yyyy-MM-dd"
+            return outputDateFormatter.string(from: inputDate)
+        } else {
+            print("Failed to parse the input string.")
+            return nil
         }
     }
     
