@@ -114,7 +114,7 @@
 		5289FDEB2B5FFC09001FCDCE /* F1FanAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = F1FanAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5289FDEF2B5FFC09001FCDCE /* F1FanAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F1FanAppUITests.swift; sourceTree = "<group>"; };
 		5289FDF12B5FFC09001FCDCE /* F1FanAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = F1FanAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		5289FE002B603AF1001FCDCE /* SpeedTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpeedTestViewController.swift; path = F1FanApp/SpeedTestViewController.swift; sourceTree = "<group>"; };
+		5289FE002B603AF1001FCDCE /* SpeedTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTestViewController.swift; sourceTree = "<group>"; };
 		52A569212B63E6E4009F39E9 /* TracksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableViewCell.swift; sourceTree = "<group>"; };
 		52A569222B63E6E4009F39E9 /* TracksTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TracksTableViewCell.xib; sourceTree = "<group>"; };
 		52CBF16F2B6837E1003D902E /* NewsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailsViewController.swift; sourceTree = "<group>"; };
@@ -150,42 +150,63 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		52268EFE2B94AAC000866527 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				521493B52B78FEAA006AF3BA /* gifLoader.swift */,
+				5213C8252B641EB9007A3E3B /* FirebaseUtil.swift */,
+				52628E2E2B619826000249E8 /* APIUtil.swift */,
+				521493B72B7900CF006AF3BA /* LoadingTransparent.gif */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		52268EFF2B94AB0E00866527 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5274C9872B6189D900D2310A /* NewsViewController.swift */,
+				52CBF16F2B6837E1003D902E /* NewsDetailsViewController.swift */,
+				5274C9852B6189C900D2310A /* InformationViewController.swift */,
+				5274C97F2B61899900D2310A /* DriversViewController.swift */,
+				5274C9812B6189A700D2310A /* TeamsViewController.swift */,
+				5274C9832B6189B200D2310A /* TracksViewController.swift */,
+				5274C9772B616B7000D2310A /* StandingsViewController.swift */,
+				5274C9792B616D3700D2310A /* DriverStandingsViewController.swift */,
+				5274C97D2B61895100D2310A /* TeamStandingsViewController.swift */,
+				5274C9892B6189F000D2310A /* LiveChatViewController.swift */,
+				52EE23412B8917E500E1C681 /* RaceInfoViewController.swift */,
+				523247FE2B77BEDE00380636 /* CircuitInfoViewController.swift */,
+				5243D80C2B8A1E60001D9C03 /* RadioListenViewController.swift */,
+				5289FE002B603AF1001FCDCE /* SpeedTestViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		52268F002B94AB1C00866527 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				527DD0CF2B62FB18003D13F6 /* NewsTableViewCell.swift */,
+				527DD0CB2B62CD72003D13F6 /* DriverTableViewCell.swift */,
+				527DD0D32B630861003D13F6 /* TeamTableViewCell.swift */,
+				52A569212B63E6E4009F39E9 /* TracksTableViewCell.swift */,
+				5256CB8C2B80DCF4009BBF61 /* MessageTableViewCell.swift */,
+				52F1D7BC2B696A830035887D /* StandingsTableViewCell.swift */,
+				527DD0D02B62FB18003D13F6 /* NewsTableViewCell.xib */,
+				527DD0CC2B62CD72003D13F6 /* DriverTableViewCell.xib */,
+				527DD0D42B630861003D13F6 /* TeamTableViewCell.xib */,
+				52A569222B63E6E4009F39E9 /* TracksTableViewCell.xib */,
+				5256CB8D2B80DCF4009BBF61 /* MessageTableViewCell.xib */,
+				52F1D7BD2B696A830035887D /* StandingsTableViewCell.xib */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
 		5289FDC22B5FFC06001FCDCE = {
 			isa = PBXGroup;
 			children = (
-				5243D80C2B8A1E60001D9C03 /* RadioListenViewController.swift */,
-				52EE23412B8917E500E1C681 /* RaceInfoViewController.swift */,
-				5256CB8C2B80DCF4009BBF61 /* MessageTableViewCell.swift */,
-				5256CB8D2B80DCF4009BBF61 /* MessageTableViewCell.xib */,
 				524FF02E2B76A68200E67D5C /* BottomSheetSegue.swift */,
 				524FF02C2B76A41600E67D5C /* BottomSheetPresentationController.swift */,
 				524FF02A2B76A29300E67D5C /* ChatBoxViewController.swift */,
-				52F1D7BC2B696A830035887D /* StandingsTableViewCell.swift */,
-				52F1D7BD2B696A830035887D /* StandingsTableViewCell.xib */,
-				52F1D7B82B6919700035887D /* SliderCell.swift */,
-				523247FE2B77BEDE00380636 /* CircuitInfoViewController.swift */,
-				52CBF16F2B6837E1003D902E /* NewsDetailsViewController.swift */,
-				5213C8252B641EB9007A3E3B /* FirebaseUtil.swift */,
-				52A569212B63E6E4009F39E9 /* TracksTableViewCell.swift */,
-				52A569222B63E6E4009F39E9 /* TracksTableViewCell.xib */,
-				527DD0D32B630861003D13F6 /* TeamTableViewCell.swift */,
-				527DD0D42B630861003D13F6 /* TeamTableViewCell.xib */,
-				527DD0CF2B62FB18003D13F6 /* NewsTableViewCell.swift */,
-				527DD0D02B62FB18003D13F6 /* NewsTableViewCell.xib */,
-				527DD0CB2B62CD72003D13F6 /* DriverTableViewCell.swift */,
-				527DD0CC2B62CD72003D13F6 /* DriverTableViewCell.xib */,
-				52628E2E2B619826000249E8 /* APIUtil.swift */,
-				5274C9892B6189F000D2310A /* LiveChatViewController.swift */,
-				5274C9872B6189D900D2310A /* NewsViewController.swift */,
-				5274C9852B6189C900D2310A /* InformationViewController.swift */,
-				5274C9832B6189B200D2310A /* TracksViewController.swift */,
-				5274C9812B6189A700D2310A /* TeamsViewController.swift */,
-				5274C97F2B61899900D2310A /* DriversViewController.swift */,
-				5274C97D2B61895100D2310A /* TeamStandingsViewController.swift */,
-				5274C97B2B6170FC00D2310A /* F1TabBarController.swift */,
-				5274C9792B616D3700D2310A /* DriverStandingsViewController.swift */,
-				5274C9772B616B7000D2310A /* StandingsViewController.swift */,
-				5289FE002B603AF1001FCDCE /* SpeedTestViewController.swift */,
 				5289FDCD2B5FFC06001FCDCE /* F1FanApp */,
 				5289FDE42B5FFC09001FCDCE /* F1FanAppTests */,
 				5289FDEE2B5FFC09001FCDCE /* F1FanAppUITests */,
@@ -206,7 +227,11 @@
 		5289FDCD2B5FFC06001FCDCE /* F1FanApp */ = {
 			isa = PBXGroup;
 			children = (
-				521493B72B7900CF006AF3BA /* LoadingTransparent.gif */,
+				52268F002B94AB1C00866527 /* TableViewCells */,
+				52268EFF2B94AB0E00866527 /* ViewControllers */,
+				52268EFE2B94AAC000866527 /* Utils */,
+				5274C97B2B6170FC00D2310A /* F1TabBarController.swift */,
+				52F1D7B82B6919700035887D /* SliderCell.swift */,
 				5289FDCE2B5FFC06001FCDCE /* AppDelegate.swift */,
 				5289FDD02B5FFC06001FCDCE /* SceneDelegate.swift */,
 				5289FDD22B5FFC06001FCDCE /* ViewController.swift */,
@@ -215,7 +240,6 @@
 				5289FDD92B5FFC08001FCDCE /* LaunchScreen.storyboard */,
 				5289FDDC2B5FFC08001FCDCE /* Info.plist */,
 				5213C8232B641C5C007A3E3B /* GoogleService-Info.plist */,
-				521493B52B78FEAA006AF3BA /* gifLoader.swift */,
 			);
 			path = F1FanApp;
 			sourceTree = "<group>";
