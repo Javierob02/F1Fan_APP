@@ -100,7 +100,7 @@ class RaceInfoViewController: UIViewController {
                 do {
                     let allClimatologies = try JSONDecoder().decode([WeatherData].self, from: jsonClimaData)
                     //Setting current circuit
-                    let currentClimatology = allClimatologies[0]
+                    let currentClimatology = allClimatologies[allClimatologies.count-1]
                     
                     //Set all Climatology Labels
                     airTempLBL.text = "Air Temp: " + String(currentClimatology.air_temperature) + "°C"

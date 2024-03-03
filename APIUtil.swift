@@ -262,7 +262,7 @@ class APIUtil {
     //API function to get latest Driver Radio
     static func getDriverRadio(driverNumber: String) {
         // API URL
-        let apiUrl = "https://api.openf1.org/v1/team_radio?session_key=latest&driver_number=" + driverNumber
+        let apiUrl = "https://api.openf1.org/v1/team_radio?driver_number=" + driverNumber
         print("FETCHING FROM: \(apiUrl)")
 
         // Create URL object

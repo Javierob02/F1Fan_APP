@@ -58,9 +58,10 @@ class RadioListenViewController: UIViewController, UIPickerViewDelegate, UIPicke
                         let allRadios = try JSONDecoder().decode([RadioData].self, from: jsonRadioData)
                         // Obtaining latest radio
                         print(allRadios)
-                        let latestRadio = allRadios[0]
+                        let latestRadio = allRadios[allRadios.count-1]
                         // Set AUDIO
                         setupAudioPlayer(radioURL: latestRadio.recording_url)
+                        audioInfoLBL.text = convertDateString(latestRadio.date)
                         print(latestRadio.recording_url)
                         print(radioData)
                     } catch {
@@ -70,7 +71,6 @@ class RadioListenViewController: UIViewController, UIPickerViewDelegate, UIPicke
             } else {
                 print("Circuits doesn't exist in UserDefaults")
             }
-            audioInfoLBL.text = allDrivers[row].Name + " " + allDrivers[row].Surname    //Set Name
         }
     }
     
@@ -123,9 +123,10 @@ class RadioListenViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     do {
                         let allRadios = try JSONDecoder().decode([RadioData].self, from: jsonRadioData)
                         // Obtaining latest radio
-                        let latestRadio = allRadios[0]
+                        let latestRadio = allRadios[allRadios.count-1]
                         // Set AUDIO
                         setupAudioPlayer(radioURL: latestRadio.recording_url)
+                        audioInfoLBL.text = convertDateString(latestRadio.date)
                         print(latestRadio.recording_url)
                         print(radioData)
                     } catch {
@@ -135,7 +136,6 @@ class RadioListenViewController: UIViewController, UIPickerViewDelegate, UIPicke
             } else {
                 print("Circuits doesn't exist in UserDefaults")
             }
-            audioInfoLBL.text = allDrivers[0].Name + " " + allDrivers[0].Surname    //Set Name
         }
         
         
@@ -147,6 +147,19 @@ class RadioListenViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
 // -------------- Functions
     
+    func convertDateString(_ dateString: String) -> String? {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
+
+        if let date = inputFormatter.date(from: dateString) {
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = "HH:mm:ss dd-MM-yyyy"
+            return outputFormatter.string(from: date)
+        } else {
+            return nil  // Invalid input string format
+        }
+    }
+        
     func setupAudioPlayer(radioURL: String) {
         guard let audioURL = URL(string: radioURL) else {
             return

@@ -311,9 +311,10 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
 
         for circuit in circuits {       //Loops through all circuits
             let circuitDate = dateFormatter.date(from: circuit.Date)    //Gets circuits date
+            let modifiedDate = Calendar.current.date(byAdding: .day, value: 2, to: circuitDate!)
             
             // Check if the circuit is in the future
-            guard let futureDate = circuitDate, futureDate > currentDate else {     //Checks if it is a FUTURE or PAST circuit
+            guard let futureDate = modifiedDate, futureDate > currentDate else {     //Checks if it is a FUTURE or PAST circuit
                 continue
             }
 
