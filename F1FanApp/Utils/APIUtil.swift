@@ -289,6 +289,118 @@ class APIUtil {
             }.resume()
         }
     }
+    
+    
+    // API function to get Session Info
+    static func getSessionInfo(completion: @escaping (String?) -> Void) {
+        // API URL
+        let apiUrl = "https://api.openf1.org/v1/sessions"
+        print("FETCHING FROM: \(apiUrl)")
+
+        // Create URL object
+        if let url = URL(string: apiUrl) {
+            // Create a URLSession task to get the data
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    completion(nil)
+                    return
+                }
+
+                // Check if data is available
+                guard let data = data else {
+                    print("No data received")
+                    completion(nil)
+                    return
+                }
+
+                do {
+                    // Decode data directly to [SessionInfo]
+                    let allSessions = try JSONDecoder().decode([SessionInfo].self, from: data)
+
+                    // Obtaining latest radio
+                    let latestSession = allSessions.last
+                    
+                    //Save meeting_key
+                    let meeting_key = String(latestSession!.meeting_key)
+                    UserDefaults.standard.set(meeting_key, forKey: "meeting")
+
+                    // Set AUDIO
+                    let resultString = "\(latestSession?.date_start ?? "")|\(latestSession?.date_end ?? "")|\(latestSession?.session_name ?? "")"
+                    print(resultString)
+                    completion(resultString)
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                    completion(nil)
+                }
+            }.resume()
+        }
+    }
+    
+    
+    
+    
+    //API function to get latest Position Data
+    static func getPositionData(meetingKey: String, completion: @escaping (Result<Data, Error>) -> Void) {
+        // API URL
+        let apiUrl = "https://api.openf1.org/v1/position?meeting_key=" + meetingKey
+        print("FETCHING FROM: \(apiUrl)")
+
+        // Create URL object
+        if let url = URL(string: apiUrl) {
+            // Create a URLSession task to get the data
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    completion(.failure(error))
+                    return
+                }
+
+                // Check if data is available
+                guard let data = data else {
+                    print("No data received")
+                    let noDataError = NSError(domain: "YourDomain", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data received"])
+                    completion(.failure(noDataError))
+                    return
+                }
+
+                // Call the completion handler with the result
+                completion(.success(data))
+            }.resume()
+        }
+    }
+    
+    
+    //API function to get latest Stint Data
+    static func getStintData(meetingKey: String, completion: @escaping (Result<Data, Error>) -> Void) {
+        // API URL
+        let apiUrl = "https://api.openf1.org/v1/stints?meeting_key=" + meetingKey
+        print("FETCHING FROM: \(apiUrl)")
+
+        // Create URL object
+        if let url = URL(string: apiUrl) {
+            // Create a URLSession task to get the data
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    completion(.failure(error))
+                    return
+                }
+
+                // Check if data is available
+                guard let data = data else {
+                    print("No data received")
+                    let noDataError = NSError(domain: "YourDomain", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data received"])
+                    completion(.failure(noDataError))
+                    return
+                }
+
+                // Call the completion handler with the result
+                completion(.success(data))
+            }.resume()
+        }
+    }
+
 
 
 
@@ -302,6 +414,23 @@ class APIUtil {
     struct ChatUser: Codable {
         let idChatUsers: String
         let Username: String
+    }
+    
+    struct SessionInfo: Codable {
+        var session_key: Int
+        var session_name: String
+        var date_start: String
+        var date_end: String
+        var gmt_offset: String
+        var session_type: String
+        var meeting_key: Int
+        var location: String
+        var country_key: Int
+        var country_code: String
+        var country_name: String
+        var circuit_key: Int
+        var circuit_short_name: String
+        var year: Int
     }
     
     enum UserError: Error {

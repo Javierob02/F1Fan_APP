@@ -9,6 +9,7 @@ import UIKit
 
 class RaceInfoViewController: UIViewController {
     var allDrivers: [Driver] = []
+    //var sessionInfo: [String] = ["2024-03-08T00:00:00", "2024-03-08T00:00:00", "Race"]
     
     //Circuit Info
     @IBOutlet weak var circuitNameLBL: UILabel!
@@ -22,13 +23,17 @@ class RaceInfoViewController: UIViewController {
     
     //Circuit Climatology
     @IBOutlet weak var circuitTimeLBL: UILabel!
-    @IBOutlet weak var weatherIMG: UIImageView!
     @IBOutlet weak var airTempLBL: UILabel!
     @IBOutlet weak var trackTempLBL: UILabel!
     @IBOutlet weak var humidityLBL: UILabel!
     @IBOutlet weak var pressureLBL: UILabel!
     @IBOutlet weak var windDirectionLBL: UILabel!
     @IBOutlet weak var windSpeedLBL: UILabel!
+    
+    //Session Info
+    @IBOutlet weak var startDate: UILabel!
+    @IBOutlet weak var endDate: UILabel!
+    @IBOutlet weak var sessionName: UILabel!
     
     //Driver Radio
     @IBOutlet weak var radioBTN: UIButton!
@@ -52,8 +57,7 @@ class RaceInfoViewController: UIViewController {
         //Set up GIF Loader
         let loadingGIF = UIImage.gifImageWithName("LoadingTransparent")
         photoIMG.image = loadingGIF
-        weatherIMG.image = loadingGIF
-
+        
         //Get Circuit Data
         APIUtil.getAPI(from: "Circuits")
         if let circuitsData = UserDefaults.standard.string(forKey: "Circuits") {
@@ -133,6 +137,28 @@ class RaceInfoViewController: UIViewController {
             print("Drivers doesn´t exist in UserDefaults")
         }
         
+        
+        //Get Session Data
+        APIUtil.getSessionInfo { [weak self] resultString in
+            // Check if the resultString is not nil
+            if let resultString = resultString {
+                let sessionInfo = self!.parseSessionInfo(resultString)
+
+                DispatchQueue.main.async { [weak self] in
+                    self?.startDate.text = "Start Time: " + self!.convertStringToFormattedTime(sessionInfo[0])!
+                    self?.endDate.text = "End Time: " + self!.convertStringToFormattedTime(sessionInfo[1])!
+                    self?.sessionName.text = "Session Name: " + String(sessionInfo[2])
+                }
+
+                print("Session Info: \(resultString)")
+                // Now you can use the resultString as needed, for example, update UI or perform other actions
+            } else {
+                print("Failed to fetch session info.")
+                // Handle the error case, e.g., show an error message to the user
+            }
+        }
+
+        
         //Image gesture
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         photoIMG.addGestureRecognizer(tapGesture)
@@ -141,6 +167,23 @@ class RaceInfoViewController: UIViewController {
     
     
 // ------- Fucntions
+    func parseSessionInfo(_ sessionInfoString: String) -> [String] {
+        return sessionInfoString.components(separatedBy: "|")
+    }
+    
+    func convertStringToFormattedTime(_ timeString: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+
+        if let date = dateFormatter.date(from: timeString) {
+            dateFormatter.dateFormat = "HH:mm:ss"
+            return dateFormatter.string(from: date)
+        }
+
+        return nil
+    }
+
+    
     func closestCircuit(circuits: [Circuit]) -> Circuit? {
         let currentDate = Date()    //Current Date
         var closestCircuit: Circuit?    //Closest circuit
@@ -150,9 +193,10 @@ class RaceInfoViewController: UIViewController {
 
         for circuit in circuits {       //Loops through all circuits
             let circuitDate = dateFormatter.date(from: circuit.Date)    //Gets circuits date
+            let modifiedDate = Calendar.current.date(byAdding: .day, value: 2, to: circuitDate!)
             
             // Check if the circuit is in the future
-            guard let futureDate = circuitDate, futureDate > currentDate else {     //Checks if it is a FUTURE or PAST circuit
+            guard let futureDate = modifiedDate, futureDate > currentDate else {     //Checks if it is a FUTURE or PAST circuit
                 continue
             }
 

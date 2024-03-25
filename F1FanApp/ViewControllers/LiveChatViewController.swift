@@ -144,7 +144,7 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
         timer?.invalidate()
 
         // Start a new timer on a background queue that repeats every 2 seconds
-        timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             self.loadChat(self.messageTableView)
         }
 
