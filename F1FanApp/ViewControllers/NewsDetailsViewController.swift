@@ -1,3 +1,6 @@
+
+
+
 //
 //  NewsDetailsViewController.swift
 //  F1FanApp
@@ -15,13 +18,6 @@ class NewsDetailsViewController: UIViewController, UICollectionViewDataSource, U
     @IBOutlet weak var titleLBL: UILabel!
     @IBOutlet weak var contentTXT: UITextView!
     
-    var imgArray = [UIImage(named: "abu-dhabi"),
-                    UIImage(named: "austin"),
-                    UIImage(named: "australia 1"),
-                    UIImage(named: "catalunya"),
-                    UIImage(named: "hungary"),
-                    UIImage(named: "japan")
-    ]
     var imageArrays: [UIImage] = []
     
     
@@ -32,21 +28,16 @@ class NewsDetailsViewController: UIViewController, UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = sliderCollectionView.dequeueReusableCell(withReuseIdentifier: "slide", for: indexPath) as! SliderCell
         
-        for newsImage in parseStringToArray(chosenNews!.Images) {
-            FirebaseUtil.getImage(withPath: newsImage) { image in
-                if let image = image {
-                    DispatchQueue.main.async {
-                        self.imageArrays.append(image)
-                        print("Image loaded succesfully")
-                    }
-                } else {
-                    print("Image download failed")
+        FirebaseUtil.getImage(withPath: parseStringToArray(chosenNews!.Images)[indexPath.row]) { image in
+            if let image = image {
+                DispatchQueue.main.async {
+                    cell.images.image = image
+                    print("Image loaded succesfully")
                 }
+            } else {
+                print("Image download failed")
             }
         }
-        
-        cell.images.image = imgArray[indexPath.row]
-        print("IMAGE: \(indexPath.row)")
         
         return cell
     }
@@ -101,7 +92,12 @@ class NewsDetailsViewController: UIViewController, UICollectionViewDataSource, U
         if let layout = sliderCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.minimumLineSpacing = 0
             layout.minimumInteritemSpacing = 0
+            layout.itemSize = CGSize(width: 340, height: 225) // Set item size to match the size of the image view
+            
+            // If you want to ensure the image is centered within the image view
+            layout.sectionInset = UIEdgeInsets(top: (225 - 225) / 2, left: (340 - 340) / 2, bottom: (225 - 225) / 2, right: (340 - 340) / 2)
         }
+
         
     }
     

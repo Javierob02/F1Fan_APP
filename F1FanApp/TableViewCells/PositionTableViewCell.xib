@@ -50,7 +50,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PBT-8F-2Ee">
-                                <rect key="frame" x="500" y="0.0" width="100" height="60"/>
+                                <rect key="frame" x="500" y="10" width="100" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="8AK-3S-9Ka"/>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="60" id="WUO-mu-cgh"/>
@@ -83,7 +83,7 @@
                             <constraint firstAttribute="bottom" secondItem="dUf-gD-Px5" secondAttribute="bottom" id="ktN-3s-Q0B"/>
                             <constraint firstItem="dUf-gD-Px5" firstAttribute="leading" secondItem="Trg-pc-eCY" secondAttribute="leading" id="m9t-Ft-NQS"/>
                             <constraint firstAttribute="trailing" secondItem="PBT-8F-2Ee" secondAttribute="trailing" id="wnb-MU-BDK"/>
-                            <constraint firstItem="PBT-8F-2Ee" firstAttribute="top" secondItem="Trg-pc-eCY" secondAttribute="top" id="wub-FP-ufg"/>
+                            <constraint firstItem="PBT-8F-2Ee" firstAttribute="top" secondItem="Trg-pc-eCY" secondAttribute="top" constant="10" id="wub-FP-ufg"/>
                         </constraints>
                     </view>
                 </subviews>

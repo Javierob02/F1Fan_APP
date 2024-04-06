@@ -23,6 +23,10 @@ class LivePositionViewController: UIViewController, UITableViewDelegate, UITable
     
     var orderedDriverList: [OrderedDriver] = []
     
+    @IBOutlet weak var loadingContainer: UIView!
+    @IBOutlet weak var loadingIMG: UIImageView!
+    @IBOutlet weak var loadingLBL: UILabel!
+    
     
     //Table View Configuration
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,6 +52,7 @@ class LivePositionViewController: UIViewController, UITableViewDelegate, UITable
         cell.driverLBL.text = orderedDriverList[indexPath.row].Surname
         //cell.pointsLBL.text = orderedDriverList[indexPath.row].TotalPoints + " Pts "
         cell.tyreLBL.text = orderedDriverList[indexPath.row].compound
+        cell.tyreIMG.image = UIImage(named: orderedDriverList[indexPath.row].compound)
         
         return cell
     }
@@ -70,6 +75,15 @@ class LivePositionViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        //Hacer aparecer Loader
+        loadingContainer.isHidden = false
+        loadingIMG.isHidden = false
+        loadingLBL.isHidden = false
+        
+        //Cargar GIF a Loading
+        let loadingGIF = UIImage.gifImageWithName("LoadingTransparent")
+        loadingIMG.image = loadingGIF
         
         if let meeting_key = UserDefaults.standard.string(forKey: "meeting") {
             print("Meeting Key: \(meeting_key)")
@@ -99,6 +113,10 @@ class LivePositionViewController: UIViewController, UITableViewDelegate, UITable
             // Start a new timer on a background queue that repeats every 2 seconds
             timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
                 self.refresData()
+                //Hacer aparecer Loader
+                self.loadingContainer.isHidden = true
+                self.loadingIMG.isHidden = true
+                self.loadingLBL.isHidden = true
             }
 
             // Ensure the timer runs on a background queue
