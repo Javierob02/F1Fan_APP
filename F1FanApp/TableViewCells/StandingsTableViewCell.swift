@@ -31,6 +31,7 @@ class StandingsTableViewCell: UITableViewCell {
         //Set up GIF Loader
         let loadingGIF = UIImage.gifImageWithName("LoadingTransparent")
         imageIMG.image = loadingGIF
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
