@@ -84,7 +84,7 @@ class RaceInfoViewController: UIViewController {
                     }
                     lapsLBL.text = "Nº Laps: " + circuitInfo![0]
                     turnsLBL.text = "Nº Turns: " + currentCircuit!.Turns
-                    recordLBL.text = "Record:" + circuitInfo![1]
+                    recordLBL.text = "Record: " + circuitInfo![1]
                     drsLBL.text = "Nº DRS Zones: " + circuitInfo![2]
                     lengthLBL.text = "Length: " + currentCircuit!.Length
                     countryLBL.text = "Country: " + currentCircuit!.Country
@@ -145,9 +145,12 @@ class RaceInfoViewController: UIViewController {
                 let sessionInfo = self!.parseSessionInfo(resultString)
 
                 DispatchQueue.main.async { [weak self] in
-                    self?.startDate.text = "Start Time: " + self!.convertStringToFormattedTime(sessionInfo[0])!
-                    self?.endDate.text = "End Time: " + self!.convertStringToFormattedTime(sessionInfo[1])!
-                    self?.sessionName.text = "Session Name: " + String(sessionInfo[2])
+                    print("START: " + sessionInfo[0])
+                    print("END: " + sessionInfo[1])
+                    print("TYPE: " + sessionInfo[2])
+                    self?.startDate.text = "Start Time: " +  self!.extractTime(from: sessionInfo[0])!
+                    self?.endDate.text = "End Time: " +  self!.extractTime(from: sessionInfo[1])!
+                    self?.sessionName.text = "Session Name: " + sessionInfo[2]
                 }
 
                 print("Session Info: \(resultString)")
@@ -171,17 +174,18 @@ class RaceInfoViewController: UIViewController {
         return sessionInfoString.components(separatedBy: "|")
     }
     
-    func convertStringToFormattedTime(_ timeString: String) -> String? {
+    func extractTime(from dateString: String) -> String? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-
-        if let date = dateFormatter.date(from: timeString) {
-            dateFormatter.dateFormat = "HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            dateFormatter.dateFormat = "HH:mm"
             return dateFormatter.string(from: date)
         }
-
+        
         return nil
     }
+
 
     
     func closestCircuit(circuits: [Circuit]) -> Circuit? {
