@@ -459,6 +459,10 @@
                                     <action selector="exitChat:" destination="nnX-lE-opj" eventType="touchUpInside" id="yPP-xE-hrQ"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="plus.app" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4JF-ZA-uqm">
+                                <rect key="frame" x="10" y="139" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="giM-kw-y7J"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -915,7 +919,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="News Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TP9-tK-NNx">
-                                <rect key="frame" x="0.0" y="50" width="375" height="73"/>
+                                <rect key="frame" x="0.0" y="60" width="375" height="73"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="73" id="AMa-qV-dw1"/>
                                 </constraints>
@@ -935,7 +939,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="W6o-72-r6Q">
-                                <rect key="frame" x="17" y="141" width="340" height="225"/>
+                                <rect key="frame" x="17" y="151" width="340" height="225"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="340" id="4qL-ZG-Bf6"/>
@@ -982,7 +986,7 @@
                                 </connections>
                             </collectionView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Jam-BF-lZt">
-                                <rect key="frame" x="69" y="335" width="237" height="26"/>
+                                <rect key="frame" x="69" y="345" width="237" height="26"/>
                                 <color key="pageIndicatorTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="currentPageIndicatorTintColor" red="0.91751724479999996" green="0.2147753537" blue="0.20994725819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </pageControl>
@@ -990,7 +994,7 @@
                         <viewLayoutGuide key="safeArea" id="xnn-ai-OKw"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="TP9-tK-NNx" firstAttribute="top" secondItem="9G1-99-P9u" secondAttribute="top" constant="50" id="80K-BR-LWz"/>
+                            <constraint firstItem="TP9-tK-NNx" firstAttribute="top" secondItem="9G1-99-P9u" secondAttribute="top" constant="60" id="80K-BR-LWz"/>
                             <constraint firstItem="Jam-BF-lZt" firstAttribute="leading" secondItem="xnn-ai-OKw" secondAttribute="leading" constant="69" id="ANz-SJ-3aK"/>
                             <constraint firstItem="W6o-72-r6Q" firstAttribute="leading" secondItem="xnn-ai-OKw" secondAttribute="leading" constant="17" id="BxC-WJ-qas"/>
                             <constraint firstItem="xnn-ai-OKw" firstAttribute="trailing" secondItem="Jam-BF-lZt" secondAttribute="trailing" constant="69" id="FEg-PI-6n6"/>
@@ -1049,7 +1053,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="catalunya" translatesAutoresizingMaskIntoConstraints="NO" id="bdt-pL-e5U">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bdt-pL-e5U">
                                 <rect key="frame" x="10" y="130.33333333333334" width="355" height="169.00000000000003"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="169" id="bFj-xx-sQK"/>
@@ -1179,6 +1183,10 @@
                                 <color key="textColor" red="0.91751724479999996" green="0.2147753537" blue="0.20994725819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="arrow.up.left.and.arrow.down.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4W7-nd-ZGr">
+                                <rect key="frame" x="10" y="131.66666666666674" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fdT-82-mCh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1304,8 +1312,8 @@
     </scenes>
     <color key="tintColor" red="0.91764705882352937" green="0.21568627450980393" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
+        <image name="arrow.up.left.and.arrow.down.right" catalog="system" width="128" height="115"/>
         <image name="book" catalog="system" width="128" height="99"/>
-        <image name="catalunya" width="1920" height="1080"/>
         <image name="gobackward" catalog="system" width="119" height="128"/>
         <image name="icons8-f1-car-100" width="100" height="100"/>
         <image name="icons8-helmet-100" width="100" height="100"/>
@@ -1313,6 +1321,7 @@
         <image name="newspaper" catalog="system" width="128" height="111"/>
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>
         <image name="play.fill" catalog="system" width="117" height="128"/>
+        <image name="plus.app" catalog="system" width="128" height="114"/>
         <image name="radio" catalog="system" width="128" height="115"/>
         <image name="rectangle.portrait.and.arrow.right" catalog="system" width="128" height="109"/>
         <image name="speedometer" catalog="system" width="128" height="123"/>
