@@ -36,6 +36,8 @@ class DriverStandingsViewController: UIViewController, UITableViewDelegate, UITa
         cell.pointsLBL.text = allDrivers[indexPath.row].TotalPoints + " Pts "
         cell.positionLBL.text = String(indexPath.row+1)
         
+        cell.accessibilityLabel = allDrivers[indexPath.row].Name + " " + allDrivers[indexPath.row].Surname + " position " + String(indexPath.row+1) + " with " + allDrivers[indexPath.row].TotalPoints + " points"
+        
         return cell
     }
     

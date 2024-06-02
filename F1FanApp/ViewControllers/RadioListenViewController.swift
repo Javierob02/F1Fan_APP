@@ -72,6 +72,8 @@ class RadioListenViewController: UIViewController, UIPickerViewDelegate, UIPicke
                 print("Circuits doesn't exist in UserDefaults")
             }
         }
+        
+        driverIMG.accessibilityLabel = allDrivers[row].Name + " " + allDrivers[row].Surname
     }
     
     

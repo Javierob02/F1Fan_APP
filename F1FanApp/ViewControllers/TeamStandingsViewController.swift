@@ -36,6 +36,8 @@ class TeamStandingsViewController: UIViewController, UITableViewDelegate, UITabl
         cell.pointsLBL.text = allTeams[indexPath.row].TotalPoints + " Pts "
         cell.positionLBL.text = String(indexPath.row+1)
         
+        cell.accessibilityLabel = allTeams[indexPath.row].Name + " position " + String(indexPath.row+1) + " with " + allTeams[indexPath.row].TotalPoints + " points"
+        
         return cell
     }
    

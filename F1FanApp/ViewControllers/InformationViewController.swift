@@ -8,6 +8,11 @@
 import UIKit
 
 class InformationViewController: UIViewController {
+    
+    @IBOutlet weak var driversBTN: UIButton!
+    @IBOutlet weak var teamsBTN: UIButton!
+    @IBOutlet weak var tracksBTN: UIButton!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

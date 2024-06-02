@@ -28,6 +28,8 @@ class TeamsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.driver1NameLBL.text = filteredTeams[indexPath.row].Driver1Name
         cell.driver2NameLBL.text = filteredTeams[indexPath.row].Driver2Name
         
+        cell.accessibilityLabel = filteredTeams[indexPath.row].Name + "Drivers " + filteredTeams[indexPath.row].Driver1Name + " and " + filteredTeams[indexPath.row].Driver2Name
+        
         FirebaseUtil.getImage(withPath: filteredTeams[indexPath.row].Logo) { image in
             if let image = image {
                 DispatchQueue.main.async {

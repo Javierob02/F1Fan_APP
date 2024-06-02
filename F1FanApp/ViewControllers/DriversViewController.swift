@@ -49,6 +49,7 @@ class DriversViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.driverLBL.text = filteredDrivers[indexPath.row].Name + " " + filteredDrivers[indexPath.row].Surname
         cell.teamLBL.text = filteredDrivers[indexPath.row].TeamName
         cell.numberLBL.text = filteredDrivers[indexPath.row].Number
+        cell.accessibilityLabel = filteredDrivers[indexPath.row].Name + " " + filteredDrivers[indexPath.row].Surname + ", " + filteredDrivers[indexPath.row].TeamName + ", number " + filteredDrivers[indexPath.row].Number
         
         return cell
     }

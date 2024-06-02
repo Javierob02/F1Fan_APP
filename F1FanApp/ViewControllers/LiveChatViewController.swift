@@ -143,7 +143,7 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
         // Invalidate any existing timer before starting a new one
         timer?.invalidate()
 
-        // Start a new timer on a background queue that repeats every 2 seconds
+        // Start a new timer on a background queue that repeats every 1 second
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             self.loadChat(self.messageTableView)
         }
@@ -162,32 +162,29 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
     
     func loadChat(_ tableView: UITableView) {
         
-        if (self.currentUserId == "") {     //We don´t have our User_Id ----> We get it
+        if (self.currentUserId == "") {  // Si no tenemos nuestro User_Id, lo obtenemos
             APIUtil.getUserId(forUsername: self.currentUsername) { result in
                 switch result {
                 case .success(let userId):
                     if let userId = userId {
                         print("User ID: \(userId) for USERNAME: \(self.currentUsername)")
-                        self.currentUserId = userId     //Obtenemos ID del Sender
+                        self.currentUserId = userId  // Obtenemos el ID del remitente
                         
-                        self.messageGet()
+                        self.messageGet()  // Llamamos a messageGet() para obtener los mensajes
                         
                     } else {
                         print("User not found.")
-                        self.currentUserId = "99999"
+                        self.currentUserId = "99999"  // Establecemos un ID por defecto si el usuario no es encontrado
                     }
                 case .failure(let error):
-                    print("Error: \(error)")
+                    print("Error: \(error)")  // Imprimimos el error si falla la llamada a la API
                 }
-                
-                
             }
-        } else {    //We have the User_Id
-            messageGet()
+        } else {  // Si ya tenemos el User_Id
+            messageGet()  // Llamamos a messageGet() para obtener los mensajes
         }
-        
-        
     }
+
     
     
     // --------- Chat Utility Functions
@@ -389,6 +386,12 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
          if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
              UIView.animate(withDuration: 0.3) {
                  self.vcView.transform = CGAffineTransform(translationX: 0, y: -keyboardSize.height)
+                 self.lapsLBL.isHidden = true
+                 self.turnsLBL.isHidden = true
+                 self.lengthLBL.isHidden = true
+                 self.countryLBL.isHidden = true
+                 self.recordLBL.isHidden = true
+                 self.drsLBL.isHidden = true
              }
          }
      }
@@ -396,6 +399,12 @@ class LiveChatViewController: UIViewController, UITableViewDelegate, UITableView
      @objc func keyboardWillHide(_ notification: Notification) {
          UIView.animate(withDuration: 0.3) {
              self.vcView.transform = .identity
+             self.lapsLBL.isHidden = false
+             self.turnsLBL.isHidden = false
+             self.lengthLBL.isHidden = false
+             self.countryLBL.isHidden = false
+             self.recordLBL.isHidden = false
+             self.drsLBL.isHidden = false
          }
      }
 

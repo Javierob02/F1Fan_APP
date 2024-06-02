@@ -70,6 +70,8 @@ class NewsDetailsViewController: UIViewController, UICollectionViewDataSource, U
                         let news = try JSONDecoder().decode([News].self, from: jsonData)
                         chosenNews = news[Int(selectedIndex)!]
                         titleLBL.text = chosenNews?.Title
+                        titleLBL.accessibilityLabel = titleLBL.text
+                        titleLBL.accessibilityTraits = .header
                         contentTXT.text = chosenNews?.Description
                         print("Lista de News actualizada")
                     } catch {
@@ -108,6 +110,7 @@ class NewsDetailsViewController: UIViewController, UICollectionViewDataSource, U
         if let tabBarController = self.tabBarController {
             tabBarController.tabBar.isHidden = true
         }
+
     }
     
     

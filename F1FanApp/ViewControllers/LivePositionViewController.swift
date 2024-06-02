@@ -54,6 +54,8 @@ class LivePositionViewController: UIViewController, UITableViewDelegate, UITable
         cell.tyreLBL.text = orderedDriverList[indexPath.row].compound
         cell.tyreIMG.image = UIImage(named: orderedDriverList[indexPath.row].compound)
         
+        cell.accessibilityLabel = orderedDriverList[indexPath.row].Surname + " in position " + String(orderedDriverList[indexPath.row].position) + " with tyre compound " + orderedDriverList[indexPath.row].compound
+        
         return cell
     }
     
@@ -110,7 +112,7 @@ class LivePositionViewController: UIViewController, UITableViewDelegate, UITable
             
             timer?.invalidate()
 
-            // Start a new timer on a background queue that repeats every 2 seconds
+            // Start a new timer on a background queue that repeats every 3 seconds
             timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
                 self.refresData()
                 //Hacer aparecer Loader

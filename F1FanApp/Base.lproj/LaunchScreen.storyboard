@@ -18,10 +18,16 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="LogoF1FanApp" translatesAutoresizingMaskIntoConstraints="NO" id="2Of-fu-11P">
                                 <rect key="frame" x="0.0" y="50" width="375" height="728"/>
                                 <color key="backgroundColor" red="0.96862751250000001" green="0.96862751250000001" blue="0.96862751250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration" label="f1 fan Launch Page">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <accessibility key="accessibilityConfiguration" label="f1 fan Launch Page">
+                            <bool key="isElement" value="YES"/>
+                        </accessibility>
                         <constraints>
                             <constraint firstItem="2Of-fu-11P" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="EWV-Kz-Pkp"/>
                             <constraint firstItem="2Of-fu-11P" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cud-u4-0hO"/>

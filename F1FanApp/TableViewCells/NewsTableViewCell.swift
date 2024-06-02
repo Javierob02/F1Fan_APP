@@ -28,6 +28,9 @@ class NewsTableViewCell: UITableViewCell {
         cardContainer.layer.borderWidth = 0.7
         cardContainer.layer.borderColor = UIColor.darkGray.cgColor
         
+        titleLBL.accessibilityLabel = titleLBL.text!
+        titleLBL.accessibilityHint = "News with title " + titleLBL.text!
+        
         
         //Set up GIF Loader
         let loadingGIF = UIImage.gifImageWithName("LoadingTransparent")

@@ -49,6 +49,26 @@ class TracksViewController: UIViewController, UITableViewDataSource, UITableView
         cell.trackLBL.text = filteredCircuits[indexPath.row].Name
         cell.turnsLBL.text = filteredCircuits[indexPath.row].Turns + " Turns"
         
+        // Extract circuit details
+        let circuit = filteredCircuits[indexPath.row]
+        let name = circuit.Name
+        let date = circuit.Date
+        let country = circuit.Country
+        let turns = circuit.Turns
+        let length = circuit.Length
+
+        // Format the date
+        let formattedDate = formatDateUsingSplit(dateString: date)
+
+        // Construct sub-expressions
+        let nameWithDate = name + " on day " + formattedDate!
+        let countryWithTurns = " in " + country + turns + " Turns"
+        let lengthDescription = " and length of " + length + " Kms"
+
+        // Combine sub-expressions to form the final accessibility label
+        cell.accessibilityLabel = nameWithDate + countryWithTurns + lengthDescription
+
+        
         return cell
     }
     

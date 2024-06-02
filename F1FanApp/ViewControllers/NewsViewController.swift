@@ -22,6 +22,7 @@ class NewsViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = newsTableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: indexPath) as! NewsTableViewCell
         
         cell.titleLBL.text = allNews[indexPath.row].Title
+        cell.titleLBL.accessibilityLabel = cell.titleLBL.text
         if let newsDate = extractDateOnly(from: String(allNews[indexPath.row].date)) {
             cell.dateLBL.text = newsDate
         }
