@@ -51,7 +51,11 @@ class LivePositionViewController: UIViewController, UITableViewDelegate, UITable
         //cell.driverLBL.text = orderedDriverList[indexPath.row].Name + " " + orderedDriverList[indexPath.row].Surname
         cell.driverLBL.text = orderedDriverList[indexPath.row].Surname
         //cell.pointsLBL.text = orderedDriverList[indexPath.row].TotalPoints + " Pts "
-        cell.tyreLBL.text = orderedDriverList[indexPath.row].compound
+        if (orderedDriverList[indexPath.row].compound == "INTERMEDIATE") {
+            cell.tyreLBL.text = "INTER";
+        } else {
+            cell.tyreLBL.text = orderedDriverList[indexPath.row].compound
+        }
         cell.tyreIMG.image = UIImage(named: orderedDriverList[indexPath.row].compound)
         
         cell.accessibilityLabel = orderedDriverList[indexPath.row].Surname + " in position " + String(orderedDriverList[indexPath.row].position) + " with tyre compound " + orderedDriverList[indexPath.row].compound
@@ -244,7 +248,9 @@ class LivePositionViewController: UIViewController, UITableViewDelegate, UITable
             let driverStint = allStints.first(where: { String($0.driver_number) == driver.Number })
             let driverPosition = allPositions.first(where: { String($0.driver_number) == driver.Number })
             
-            resultList.append(OrderedDriver(position: driverPosition!.position, Photo: driver.Photo, Name: driver.Name, Surname: driver.Surname, Number: driver.Number, compound: driverStint!.compound))
+            resultList.append(OrderedDriver(position: driverPosition!.position, Photo: driver.Photo,
+                                            Name: driver.Name, Surname: driver.Surname,
+                                            Number: driver.Number, compound: driverStint!.compound))
         }
         
         resultList.sort { $0.position < $1.position }
