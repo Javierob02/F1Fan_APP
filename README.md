@@ -8,6 +8,20 @@ Este proyecto se propone crear una plataforma todo-en-uno que combine informaci�
 
 Esta propuesta de TFG se enfoca en el desarrollo de una aplicación móvil para el Sistema Operativo iOS, en el marco de la Ingeniería Informática. Más allá de ser una herramienta informativa, la aplicación busca enriquecer la manera en que los aficionados interactúan con el mundo de la Fórmula 1. Con funcionalidades diseñadas para gestionar tanto la interfaz de usuario como el contenido en tiempo real, este proyecto representa una oportunidad para aplicar habilidades de ingeniería del software en un contexto práctico.
 
+## Relación con Otros Repositorios
+
+Este es el proyecto principal, pero existe una relación estrecha con otros dos repositorios que son esenciales para el funcionamiento completo del ecosistema de "F1 Fan":
+
+1. **APIs necesarias para el proyecto**: Este repositorio contiene las APIs desarrolladas en PHP y Node.js que se utilizan para conectarse a la base de datos MySQL y a los servicios de Firebase Storage & Authentication.  
+   [Repositorio de las APIs](https://github.com/Javierob02/F1Fan_APIs-TFT)
+
+2. **Interfaz web para manejar las bases de datos**: Esta interfaz web está diseñada para gestionar la base de datos de la aplicación, soportando tanto la base de datos relacional MySQL como Firebase Storage.  
+   [Repositorio de la interfaz web](https://github.com/Javierob02/WebManager_TFG)
+
+
+
+
+
 ## Uso de la Aplicación
 
 Para utilizar la "F1 Fan App", sigue los siguientes pasos:
