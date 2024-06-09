@@ -87,47 +87,63 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C6127EE6-5BB3-46DA-A998-DF6EF02D40B0"
+            uuid = "4FBDA742-60B2-48E6-B772-2927A674F2C6"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LiveChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B3FDECC1-1AA7-4F2E-ABD7-5E70BB0685D9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LiveChatViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "209"
+            endingLineNumber = "209"
+            landmarkName = "messageGet()"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "C6127EE6-5BB3-46DA-A998-DF6EF02D40B0 - 4a5e2c71da12b40b"
+                  uuid = "B3FDECC1-1AA7-4F2E-ABD7-5E70BB0685D9 - fb17172d1be5aece"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "F1FanApp.LiveChatViewController.viewDidLoad() -&gt; ()"
+                  symbolName = "F1FanApp.LiveChatViewController.messageGet() -&gt; ()"
                   moduleName = "F1FanApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/macbookpro/Desktop/TFG/Proyecto_Xcode/F1FanApp/LiveChatViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "72"
-                  endingLineNumber = "72"
-                  offsetFromSymbolStart = "2086">
+                  startingLineNumber = "181"
+                  endingLineNumber = "181"
+                  offsetFromSymbolStart = "1892">
                </Location>
                <Location
-                  uuid = "C6127EE6-5BB3-46DA-A998-DF6EF02D40B0 - 4a5e2c71da12a942"
+                  uuid = "B3FDECC1-1AA7-4F2E-ABD7-5E70BB0685D9 - 4474673c674d7222"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "F1FanApp.LiveChatViewController.viewDidLoad() -&gt; ()"
+                  symbolName = "closure #1 (Swift.Result&lt;Swift.Optional&lt;Swift.String&gt;, F1FanApp.APIUtil.UserError&gt;) -&gt; () in F1FanApp.LiveChatViewController.messageGet() -&gt; ()"
                   moduleName = "F1FanApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/macbookpro/Desktop/TFG/Proyecto_Xcode/F1FanApp/LiveChatViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "97"
-                  endingLineNumber = "97"
-                  offsetFromSymbolStart = "2104">
+                  startingLineNumber = "168"
+                  endingLineNumber = "168"
+                  offsetFromSymbolStart = "308">
                </Location>
             </Locations>
          </BreakpointContent>
